@@ -19,25 +19,32 @@ const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: ${props => props.theme.colors.card};
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.border};
 `;
 
 const HeaderTextContainer = styled.View``;
 
 const WelcomeText = styled.Text`
-  font-size: 14px;
+  font-size: 13px;
   color: ${props => props.theme.colors.textSecondary};
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.5px;
 `;
 
 const UsernameText = styled.Text`
   font-size: 24px;
-  font-weight: bold;
-  color: ${props => props.theme.colors.text};
+  font-weight: 900;
+  color: ${props => props.theme.colors.primary};
 `;
 
 const QuickStatsCard = styled.View`
   background-color: ${props => props.theme.colors.primary};
   border-radius: 20px;
   margin-horizontal: 20px;
+  margin-top: 20px;
   padding: 20px;
   flex-direction: row;
   justify-content: space-between;
@@ -54,40 +61,47 @@ const StatInfo = styled.View``;
 const StatLabel = styled.Text`
   color: rgba(255, 255, 255, 0.85);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const StatValue = styled.Text`
   color: #FFFFFF;
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 900;
   margin-top: 4px;
 `;
 
 const StatAction = styled.TouchableOpacity`
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: ${props => props.theme.colors.accent};
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 10px 16px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.1;
+  shadow-radius: 2px;
+  elevation: 1;
 `;
 
 const StatActionText = styled.Text`
-  color: #FFFFFF;
-  font-weight: bold;
+  color: #0F172A;
+  font-weight: 800;
   font-size: 13px;
 `;
 
 const SectionTitle = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight: 800;
   color: ${props => props.theme.colors.text};
   margin-top: 24px;
   margin-bottom: 12px;
   margin-horizontal: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 const CardRow = styled.View`
   background-color: ${props => props.theme.colors.card};
-  border-width: 1px;
+  border-width: 1.5px;
   border-color: ${props => props.theme.colors.border};
   border-radius: 16px;
   padding: 16px;
@@ -112,6 +126,8 @@ const CardIconContainer = styled.View<{ active: boolean }>`
   justify-content: center;
   align-items: center;
   margin-right: 14px;
+  border-width: 1px;
+  border-color: ${props => props.active ? props.theme.colors.primary : 'transparent'};
 `;
 
 const CardDetails = styled.View`
@@ -119,7 +135,7 @@ const CardDetails = styled.View`
 `;
 
 const CardTitle = styled.Text`
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   color: ${props => props.theme.colors.text};
 `;
@@ -132,7 +148,7 @@ const CardSubtitle = styled.Text`
 
 const PromoCard = styled.View`
   background-color: ${props => props.theme.colors.card};
-  border-width: 1px;
+  border-width: 1.5px;
   border-color: ${props => props.theme.colors.border};
   border-radius: 16px;
   padding: 16px;
@@ -143,18 +159,20 @@ const PromoCard = styled.View`
 `;
 
 const PromoBadge = styled.View`
-  background-color: ${props => props.theme.colors.accent};
+  background-color: ${props => props.theme.colors.primary};
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 6px 10px;
   align-self: flex-start;
-  margin-top: 4px;
+  margin-top: 2px;
   margin-right: 12px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.primary};
 `;
 
 const PromoBadgeText = styled.Text`
-  color: #0F172A;
-  font-weight: bold;
-  font-size: 12px;
+  color: #FFFFFF;
+  font-weight: 900;
+  font-size: 13px;
 `;
 
 const PromoDetails = styled.View`
@@ -179,25 +197,23 @@ export default function HomeScreen() {
   const { theme } = useAppTheme();
   const router = useRouter();
 
-  // Argentine Bank Card definitions
+  // Bahia Blanca & Coop Obrera payment cards
   const availableCards = [
-    { name: 'Cuenta DNI', subtitle: 'Banco Provincia (Fines de semana 30%)' },
-    { name: 'Comunidad Coto', subtitle: 'Coto descuento (Miércoles/Jueves 15%)' },
-    { name: 'BNA+', subtitle: 'Banco Nación MODO (Miércoles 20%)' },
+    { name: 'Tarjeta Coopeplus', subtitle: 'Tarjeta de La Coope (Martes/Jueves 15%)' },
+    { name: 'Asociado Coope', subtitle: 'Socio de la Cooperativa Obrera (Lunes/Miércoles 10%)' },
+    { name: 'Cuenta DNI', subtitle: 'Banco Provincia (Fines de semana 30% en La Coope/Carrefour)' },
     { name: 'Tarjeta Carrefour', subtitle: 'Descuento diario 10% en Carrefour' },
-    { name: 'Tarjeta Cencosud', subtitle: 'Jumbo/Vea/Disco (Miércoles 20%)' },
-    { name: 'Banco Galicia', subtitle: 'Descuento Jumbo (Jueves 15%)' },
-    { name: 'Tarjeta TCI Coto', subtitle: 'Tarjeta de crédito Coto (Lunes 20%)' }
+    { name: 'BNA+', subtitle: 'Banco Nación MODO (Miércoles 20% en Día)' },
+    { name: 'Club Día', subtitle: 'Club Día% descuentos diarios 10%' },
+    { name: 'Tarjeta Cencosud', subtitle: 'Descuentos en Vea Supermercados (Miércoles 15%)' }
   ];
 
-  // Get current day of week in Spanish
   const getCapitalizedDay = () => {
     const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
     return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
   };
   const currentDay = getCapitalizedDay();
 
-  // Filter promotions that apply today in Argentina
   const todaysPromos = PROMOTIONS.filter(promo => promo.days.includes(currentDay));
 
   return (
@@ -205,24 +221,24 @@ export default function HomeScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
           <HeaderTextContainer>
-            <WelcomeText>¡Hola de nuevo!</WelcomeText>
+            <WelcomeText>¡Hola de nuevo, che!</WelcomeText>
             <UsernameText>{user?.username || 'Ahorrador'}</UsernameText>
           </HeaderTextContainer>
-          <Ionicons name="notifications-outline" size={24} color={theme.colors.text} />
+          <Ionicons name="notifications-outline" size={24} color={theme.colors.primary} />
         </Header>
 
         <QuickStatsCard>
           <StatInfo>
             <StatLabel>Mi Ahorro Estimado</StatLabel>
-            <StatValue>$12.450</StatValue>
+            <StatValue>$14.280</StatValue>
           </StatInfo>
           <StatAction onPress={() => router.push('/chat' as any)}>
-            <StatActionText>Consultar al Bot</StatActionText>
+            <StatActionText>Preguntar al Bot</StatActionText>
           </StatAction>
         </QuickStatsCard>
 
-        {/* Argentine Promotion Alerts for Today */}
-        <SectionTitle>🔥 Promociones de hoy ({currentDay})</SectionTitle>
+        {/* Bahia Blanca active promos list */}
+        <SectionTitle>🔥 Promociones Hoy en la Ciudad ({currentDay})</SectionTitle>
         {todaysPromos.length > 0 ? (
           todaysPromos.map((promo) => {
             const isUserCardActive = cards.includes(promo.cardName);
@@ -237,7 +253,7 @@ export default function HomeScreen() {
                   </PromoTitle>
                   <PromoDesc>{promo.description}</PromoDesc>
                   {!isUserCardActive && (
-                    <Text style={{ color: theme.colors.accent, fontSize: 11, fontWeight: 'bold', marginTop: 4 }}>
+                    <Text style={{ color: theme.colors.primary, fontSize: 11, fontWeight: 'bold', marginTop: 4 }}>
                       ⚠️ Activa esta tarjeta abajo para aplicar este descuento
                     </Text>
                   )}
@@ -251,10 +267,10 @@ export default function HomeScreen() {
           </View>
         )}
 
-        {/* Credit Card / Bank Promo Selector */}
-        <SectionTitle>💳 Mis Tarjetas y Medios de Pago</SectionTitle>
+        {/* Promo filter switches */}
+        <SectionTitle>💳 Mis Tarjetas en Bahía Blanca</SectionTitle>
         <Text style={{ color: theme.colors.textSecondary, fontSize: 13, marginHorizontal: 20, marginBottom: 12 }}>
-          Marcá las tarjetas y cuentas que tenés activas para calcular automáticamente el mejor precio.
+          Marcá qué tarjetas tenés para buscar ofertas con descuentos automáticos.
         </Text>
 
         {availableCards.map((card) => {

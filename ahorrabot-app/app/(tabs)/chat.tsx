@@ -26,7 +26,7 @@ const Container = styled.SafeAreaView`
 
 const ChatHeader = styled.View`
   padding: 16px 20px;
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.primary};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.border};
   flex-direction: row;
@@ -37,7 +37,7 @@ const BotAvatar = styled.View`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background-color: ${props => props.theme.colors.primaryLight};
+  background-color: rgba(255, 255, 255, 0.2);
   justify-content: center;
   align-items: center;
   margin-right: 12px;
@@ -48,13 +48,13 @@ const HeaderTitleContainer = styled.View``;
 const HeaderTitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: ${props => props.theme.colors.text};
+  color: #FFFFFF;
 `;
 
 const HeaderStatus = styled.Text`
   font-size: 12px;
-  color: ${props => props.theme.colors.primary};
-  font-weight: 600;
+  color: ${props => props.theme.colors.accent};
+  font-weight: 700;
 `;
 
 const MessageList = styled.ScrollView.attrs({
@@ -79,7 +79,7 @@ const BubbleText = styled.Text<{ isUser: boolean }>`
 
 const BubbleTime = styled.Text<{ isUser: boolean }>`
   font-size: 10px;
-  color: ${props => props.isUser ? 'rgba(255,255,255,0.7)' : props.theme.colors.textSecondary};
+  color: ${props => props.isUser ? 'rgba(255,255,255,0.75)' : props.theme.colors.textSecondary};
   align-self: flex-end;
   margin-top: 4px;
 `;
@@ -153,7 +153,7 @@ export default function ChatScreen() {
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'bot'; text: string; time: string }>>([
     {
       sender: 'bot',
-      text: '¡Hola che! Soy AhorraBot, tu asistente personal de ahorro en supermercados 🇦🇷\n\nDecime qué andás buscando (ej. fideos, arroz, desodorante, yerba, aceite, leche) o contame qué tarjetas tenés activas y te digo dónde te conviene gatillar hoy.',
+      text: '¡Hola che! Soy AhorraBot, tu asistente de ahorro en Bahía Blanca 🇦🇷\n\n¿Qué querés comprar hoy? (ej. fideos, arroz, desodorante, yerba, aceite, leche). Decime qué andás buscando o qué tarjetas tenés y te calculo al toque si conviene ir a La Coope, Carrefour, Día o Vea.',
       time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -161,7 +161,6 @@ export default function ChatScreen() {
   const [botLoading, setBotLoading] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
-  // Capitalized day helper
   const getCapitalizedDay = () => {
     const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
     return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
@@ -171,19 +170,16 @@ export default function ChatScreen() {
     const text = (textToSend || input).trim();
     if (!text) return;
 
-    // Append user message
     const currentTime = new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
     setMessages(prev => [...prev, { sender: 'user', text, time: currentTime }]);
     if (!textToSend) setInput('');
     setBotLoading(true);
 
     try {
-      // Map format for OpenRouter API
       const apiHistory: ChatMessage[] = messages.map(msg => ({
         role: msg.sender === 'user' ? 'user' : 'assistant',
         content: msg.text
       }));
-      // Append current message
       apiHistory.push({ role: 'user', content: text });
 
       const currentDay = getCapitalizedDay();
@@ -206,7 +202,6 @@ export default function ChatScreen() {
     }
   };
 
-  // Handle transcribed voice speech
   const handleSpeechResult = (text: string) => {
     if (text.trim()) {
       handleSend(text);
@@ -223,11 +218,11 @@ export default function ChatScreen() {
     <Container>
       <ChatHeader>
         <BotAvatar>
-          <Ionicons name="chatbubbles" size={24} color={theme.colors.primary} />
+          <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
         </BotAvatar>
         <HeaderTitleContainer>
-          <HeaderTitle>AhorraBot</HeaderTitle>
-          <HeaderStatus>Asistente de Ahorro Activo</HeaderStatus>
+          <HeaderTitle>AhorraBot Bahía</HeaderTitle>
+          <HeaderStatus>En línea • Ahorrando</HeaderStatus>
         </HeaderTitleContainer>
       </ChatHeader>
 
@@ -249,7 +244,7 @@ export default function ChatScreen() {
           {botLoading && (
             <LoadingBubble>
               <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginRight: 8 }} />
-              <Text style={{ color: theme.colors.textSecondary, fontSize: 14 }}>Calculando precios...</Text>
+              <Text style={{ color: theme.colors.textSecondary, fontSize: 14 }}>Calculando promociones...</Text>
             </LoadingBubble>
           )}
         </MessageList>
