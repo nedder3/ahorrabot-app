@@ -12,9 +12,10 @@ import {
 import styled from 'styled-components/native';
 import { useAuth } from '../../context/auth-context';
 import { useAppTheme } from '../../context/theme-context';
+import { useCart, CartItem, StoreCartTotal } from '../../context/cart-context';
 import { MapViewComponent } from '../../components/map-view';
 import { getUserLocation, getNearbyStores, GeolocatedStore } from '../../services/google-maps';
-import { PRODUCTS, calculateBestOptionsForProduct, CalculationResult } from '../../services/supermarket-data';
+import { PRODUCTS } from '../../services/supermarket-data';
 import { saveFavoriteDeal } from '../../database/db';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -35,7 +36,7 @@ const Header = styled.View`
 `;
 
 const HeaderTitle = styled.Text`
-  font-size: 20px;
+  font-size: 19px;
   font-weight: bold;
   color: #FFFFFF;
 `;
@@ -47,46 +48,79 @@ const LocationText = styled.Text`
   font-weight: 500;
 `;
 
-const ProductSelector = styled.View`
-  padding: 16px 20px;
+const CartSection = styled.View`
   background-color: ${props => props.theme.colors.card};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.border};
+  padding: 16px 20px;
 `;
 
-const SelectorLabel = styled.Text`
+const CartTitleRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+`;
+
+const SectionLabel = styled.Text`
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: ${props => props.theme.colors.text};
-  margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 `;
 
-const ProductScroll = styled.ScrollView.attrs({
-  horizontal: true,
-  showsHorizontalScrollIndicator: false,
-})`
+const ClearButton = styled.TouchableOpacity`
   flex-direction: row;
+  align-items: center;
 `;
 
-const ProductChip = styled.TouchableOpacity<{ selected: boolean }>`
-  background-color: ${props => props.selected ? props.theme.colors.primary : '#F1F5F9'};
-  border-width: 1.5px;
-  border-color: ${props => props.selected ? props.theme.colors.primary : '#E2E8F0'};
-  border-radius: 20px;
-  padding: 8px 16px;
-  margin-right: 8px;
-`;
-
-const ProductChipText = styled.Text<{ selected: boolean }>`
-  color: ${props => props.selected ? '#FFFFFF' : props.theme.colors.text};
+const ClearButtonText = styled.Text`
   font-size: 13px;
+  color: ${props => props.theme.colors.primary};
   font-weight: bold;
+  margin-left: 4px;
+`;
+
+const CartRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-vertical: 10px;
+  border-bottom-width: 0.5px;
+  border-bottom-color: ${props => props.theme.colors.border};
+`;
+
+const ItemName = styled.Text`
+  font-size: 15px;
+  font-weight: 600;
+  color: ${props => props.theme.colors.text};
+  flex: 1;
+`;
+
+const QtyControls = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const QtyButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: ${props => props.theme.colors.primaryLight};
+  justify-content: center;
+  align-items: center;
+`;
+
+const QtyText = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.text};
+  margin-horizontal: 12px;
 `;
 
 const MapContainer = styled.View`
-  height: 220px;
+  height: 200px;
   margin: 16px 20px;
   border-radius: 16px;
   overflow: hidden;
@@ -146,23 +180,10 @@ const PriceContainer = styled.View`
   align-items: flex-end;
 `;
 
-const OriginalPrice = styled.Text`
-  font-size: 12px;
-  color: ${props => props.theme.colors.textSecondary};
-  text-decoration-line: line-through;
-`;
-
 const FinalPrice = styled.Text`
   font-size: 22px;
   font-weight: 900;
   color: ${props => props.theme.colors.primary};
-`;
-
-const PromoLabel = styled.Text`
-  font-size: 12px;
-  color: ${props => props.theme.colors.primary};
-  font-weight: 700;
-  margin-top: 2px;
 `;
 
 const PromoDescription = styled.Text`
@@ -196,7 +217,6 @@ const SaveDealText = styled.Text`
   margin-left: 6px;
 `;
 
-// "Buscando Ofertas" Loading Overlay Component
 const SearchLoaderContainer = styled.View`
   background-color: ${props => props.theme.colors.card};
   border-width: 2px;
@@ -229,16 +249,65 @@ const SearchLoaderSub = styled.Text`
   line-height: 20px;
 `;
 
+const EmptyCartContainer = styled.View`
+  background-color: ${props => props.theme.colors.card};
+  border-width: 1.5px;
+  border-color: ${props => props.theme.colors.border};
+  border-radius: 20px;
+  margin: 24px 20px;
+  padding: 30px 20px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EmptyCartTitle = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.text};
+  margin-top: 12px;
+  text-align: center;
+`;
+
+const EmptyCartText = styled.Text`
+  font-size: 14px;
+  color: ${props => props.theme.colors.textSecondary};
+  text-align: center;
+  margin-top: 6px;
+  line-height: 20px;
+  margin-bottom: 20px;
+`;
+
+const QuickAddList = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const QuickAddButton = styled.TouchableOpacity`
+  background-color: ${props => props.theme.colors.primaryLight};
+  border-radius: 16px;
+  padding: 8px 12px;
+  margin: 4px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.primary};
+`;
+
+const QuickAddText = styled.Text`
+  color: ${props => props.theme.colors.primary};
+  font-size: 12px;
+  font-weight: bold;
+`;
+
 export default function MapScreen() {
   const { user, cards } = useAuth();
   const { theme } = useAppTheme();
+  const { cart, addToCart, removeFromCart, clearCart, calculateCartTotals } = useCart();
   
-  const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id);
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [isSearchingOffers, setIsSearchingOffers] = useState(false);
   const [userCoords, setUserCoords] = useState<{ latitude: number; longitude: number; address: string } | null>(null);
   const [nearbyStores, setNearbyStores] = useState<GeolocatedStore[]>([]);
-  const [calculations, setCalculations] = useState<CalculationResult[]>([]);
+  const [calculations, setCalculations] = useState<StoreCartTotal[]>([]);
 
   // Get user location on mount
   useEffect(() => {
@@ -251,9 +320,20 @@ export default function MapScreen() {
     fetchLocation();
   }, []);
 
-  // Recalculate options when product changes, and trigger the "Buscando" overlay
-  const handleProductSelect = (productId: string) => {
-    setSelectedProductId(productId);
+  const getCapitalizedDay = () => {
+    const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
+    return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
+  };
+
+  // Recalculate options when cart or cards change
+  useEffect(() => {
+    const currentDay = getCapitalizedDay();
+    const results = calculateCartTotals(currentDay, cards);
+    setCalculations(results);
+  }, [cart, cards]);
+
+  const handleQuickAdd = (productId: string) => {
+    addToCart(productId);
     setIsSearchingOffers(true);
     
     // Simulate query comparison timing
@@ -262,37 +342,25 @@ export default function MapScreen() {
     }, 1800);
   };
 
-  useEffect(() => {
-    const getCapitalizedDay = () => {
-      const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
-      return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
-    };
-
-    const currentDay = getCapitalizedDay();
-    const results = calculateBestOptionsForProduct(selectedProductId, currentDay, cards);
-    setCalculations(results);
-  }, [selectedProductId, cards]);
-
-  const handleSaveFavorite = async (calc: CalculationResult) => {
+  const handleSaveFavorite = async (calc: StoreCartTotal) => {
     if (!user) {
       Alert.alert('Error', 'Debés iniciar sesión para guardar pedidos.');
       return;
     }
 
     try {
-      const prodName = PRODUCTS.find(p => p.id === selectedProductId)?.name || selectedProductId;
-      const appliedPromosStr = calc.activePromos.map(p => p.name).join(', ') || 'Precio Base';
+      const cartSummaryText = cart.map(item => `${item.quantity}x ${item.name.split(' ')[0]}`).join(', ');
       
       await saveFavoriteDeal(
         user.id,
-        prodName,
+        `Pedido: [${cartSummaryText}]`,
         calc.storeName,
-        calc.originalPrice,
-        appliedPromosStr,
-        calc.finalPrice
+        calc.totalPrice, // Save total price
+        'Carrito Completo',
+        calc.totalPrice
       );
       
-      Alert.alert('¡Pedido Guardado!', `Guardaste la oferta de "${prodName}" en ${calc.storeName} por $${calc.finalPrice}.`);
+      Alert.alert('¡Pedido Guardado!', `Guardaste tu lista completa de compras en ${calc.storeName} por un total de $${calc.totalPrice}.`);
     } catch (e) {
       console.error(e);
       Alert.alert('Error', 'No se pudo guardar el pedido.');
@@ -302,44 +370,69 @@ export default function MapScreen() {
   return (
     <Container>
       <Header>
-        <HeaderTitle>Ofertas Bahía Blanca 🛒</HeaderTitle>
+        <HeaderTitle>Comparador de Carrito 🛒</HeaderTitle>
         {loadingLocation ? (
           <ActivityIndicator size="small" color="#FFFFFF" />
         ) : (
-          <LocationText>📍 {userCoords?.address}</LocationText>
+          <LocationText>📍 {userCoords?.address.split(',')[0]}</LocationText>
         )}
       </Header>
 
-      <ProductSelector>
-        <SelectorLabel>Elegí qué querés comprar:</SelectorLabel>
-        <ProductScroll>
-          {PRODUCTS.map(product => {
-            const isSelected = product.id === selectedProductId;
-            return (
-              <ProductChip
-                key={product.id}
-                selected={isSelected}
-                onPress={() => handleProductSelect(product.id)}
-              >
-                <ProductChipText selected={isSelected}>
-                  {product.name.split(' ')[0]}
-                </ProductChipText>
-              </ProductChip>
-            );
-          })}
-        </ProductScroll>
-      </ProductSelector>
+      {/* Cart Summary Header */}
+      {cart.length > 0 && (
+        <CartSection>
+          <CartTitleRow>
+            <SectionLabel>Mi Carrito de Compras</SectionLabel>
+            <ClearButton onPress={clearCart}>
+              <Ionicons name="trash-outline" size={14} color={theme.colors.primary} />
+              <ClearButtonText>Vaciar</ClearButtonText>
+            </ClearButton>
+          </CartTitleRow>
+
+          {cart.map(item => (
+            <CartRow key={item.productId}>
+              <ItemName>{item.name}</ItemName>
+              <QtyControls>
+                <QtyButton onPress={() => removeFromCart(item.productId)}>
+                  <Ionicons name="remove" size={16} color={theme.colors.primary} />
+                </QtyButton>
+                <QtyText>{item.quantity}</QtyText>
+                <QtyButton onPress={() => addToCart(item.productId)}>
+                  <Ionicons name="add" size={16} color={theme.colors.primary} />
+                </QtyButton>
+              </QtyControls>
+            </CartRow>
+          ))}
+        </CartSection>
+      )}
 
       {isSearchingOffers ? (
         <ScrollView>
           <SearchLoaderContainer>
             <ActivityIndicator size="large" color={theme.colors.primary} />
-            <SearchLoaderText>Buscando las mejores ofertas...</SearchLoaderText>
+            <SearchLoaderText>Buscando ofertas del carrito...</SearchLoaderText>
             <SearchLoaderSub>
-              Comparando precios en Cooperativa Obrera, Carrefour, Día y Vea...{'\n'}
-              Analizando descuentos activos de Cuenta DNI y Coopeplus.
+              Sumando productos y aplicando reintegros Cuenta DNI y Coopeplus...{'\n'}
+              Comparando Cooperativa Obrera, Carrefour, Día y Vea.
             </SearchLoaderSub>
           </SearchLoaderContainer>
+        </ScrollView>
+      ) : cart.length === 0 ? (
+        <ScrollView>
+          <EmptyCartContainer>
+            <Ionicons name="cart-outline" size={60} color={theme.colors.textSecondary} />
+            <EmptyCartTitle>Tu carrito de compras está vacío</EmptyCartTitle>
+            <EmptyCartText>
+              Escribile o dictale tu lista de víveres a AhorraBot en la pestaña del chat (ej. &quot;agregame fideos y yerba&quot;) o agregá productos rápidos acá abajo:
+            </EmptyCartText>
+            <QuickAddList>
+              {PRODUCTS.map(p => (
+                <QuickAddButton key={p.id} onPress={() => handleQuickAdd(p.id)}>
+                  <QuickAddText>➕ {p.name.split(' ')[0]}</QuickAddText>
+                </QuickAddButton>
+              ))}
+            </QuickAddList>
+          </EmptyCartContainer>
         </ScrollView>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -361,43 +454,41 @@ export default function MapScreen() {
 
           {/* Calculations / Supermarket comparisons */}
           <ResultsContainer>
-            <SelectorLabel style={{ fontSize: 15, marginBottom: 12 }}>
-              💰 Mejores Precios Calculados en la Ciudad:
-            </SelectorLabel>
+            <SectionLabel style={{ fontSize: 15, marginBottom: 12 }}>
+              💰 Costo Total del Carrito Completo:
+            </SectionLabel>
 
             {calculations.map((calc, index) => {
               const isBestOption = index === 0;
-              const hasPromo = calc.discountPercent > 0;
-              const savedPercentage = calc.discountPercent;
               
               return (
                 <ResultCard key={calc.storeId} isBest={isBestOption}>
                   {isBestOption && (
                     <BestBadge>
-                      <BestBadgeText>¡MÁS BARATO!</BestBadgeText>
+                      <BestBadgeText>¡MÁS CONVENIENTE!</BestBadgeText>
                     </BestBadge>
                   )}
 
                   <ResultHeader>
                     <StoreName>{calc.storeName}</StoreName>
                     <PriceContainer>
-                      {hasPromo && <OriginalPrice>${calc.originalPrice}</OriginalPrice>}
-                      <FinalPrice>${calc.finalPrice}</FinalPrice>
-                      {hasPromo && <PromoLabel>-{savedPercentage}% OFF</PromoLabel>}
+                      <FinalPrice>${calc.totalPrice}</FinalPrice>
                     </PriceContainer>
                   </ResultHeader>
 
                   <Text style={{ color: theme.colors.textSecondary, fontSize: 12, fontWeight: '500' }}>
-                    📍 A {calc.distance} km de distancia
+                    📍 A {calc.distance} km • {calc.breakdown}
                   </Text>
 
                   <PromoDescription>
-                    {calc.breakdownText}
+                    {isBestOption 
+                      ? `✨ Comprando tu carrito en ${calc.storeName} tenés la opción más económica hoy.` 
+                      : `Comprando en ${calc.storeName} gastás $${calc.totalPrice - calculations[0].totalPrice} más que la opción recomendada.`}
                   </PromoDescription>
 
                   <SaveDealButton onPress={() => handleSaveFavorite(calc)}>
-                    <Ionicons name="cart" size={16} color={theme.colors.primary} />
-                    <SaveDealText>Guardar Pedido</SaveDealText>
+                    <Ionicons name="bookmark" size={16} color={theme.colors.primary} />
+                    <SaveDealText>Guardar Pedido Completo</SaveDealText>
                   </SaveDealButton>
                 </ResultCard>
               );
