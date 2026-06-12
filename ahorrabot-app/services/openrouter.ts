@@ -1,6 +1,7 @@
 // services/openrouter.ts
 import axios from 'axios';
-import { PRODUCTS, STORES, PRICES, PROMOTIONS, calculateBestOptionsForProduct } from './supermarket-data';
+import { PRODUCTS, STORES, PRICES, PROMOTIONS } from './supermarket-data';
+import { CartItem } from '../context/cart-context';
 
 const OPENROUTER_API_KEY = process.env.EXPO_PUBLIC_OPENROUTER_API_KEY;
 
@@ -12,13 +13,18 @@ export interface ChatMessage {
 export const fetchBotResponse = async (
   chatHistory: ChatMessage[],
   userCards: string[],
-  currentDay: string
+  currentDay: string,
+  currentCart: CartItem[]
 ): Promise<string> => {
   try {
     if (!OPENROUTER_API_KEY) {
       console.warn('⚠️ Missing OpenRouter API Key in environment!');
       return 'Che, disculpame, pero parece que no configuraste la clave de API de OpenRouter en el archivo .env. ¡Cargala así puedo ayudarte a ahorrar!';
     }
+
+    const cartSummary = currentCart.length > 0 
+      ? currentCart.map(item => `${item.quantity}x ${item.name.split(' ')[0]} (id: ${item.productId})`).join(', ')
+      : 'Vacío';
 
     const dataContextSummary = `
 DATOS DE PRODUCTOS Y PRECIOS EN BAHÍA BLANCA:
@@ -37,23 +43,27 @@ ${PROMOTIONS.map(promo => {
 }).join('\n')}
 
 CONTEXTO ACTUAL DEL USUARIO:
-- Ubicación: Bahía Blanca, Provincia de Buenos Aires, Argentina (o geolocalizado en la zona)
+- Ubicación: Bahía Blanca, Provincia de Buenos Aires, Argentina
 - Día de la semana hoy: ${currentDay}
-- Tarjetas/Promociones activas del usuario: ${userCards.length > 0 ? userCards.join(', ') : 'Ninguna tarjeta seleccionada (solo efectivo/débito básico)'}
+- Tarjetas/Promociones activas del usuario: ${userCards.length > 0 ? userCards.join(', ') : 'Ninguna tarjeta seleccionada'}
+- CARRITO DE COMPRAS ACTUAL: ${cartSummary}
 `;
 
     const systemPrompt = `
-Eres "AhorraBot", el mejor asistente de compras y ahorro familiar de Bahía Blanca y toda Argentina. Ayudas a los usuarios a estirar el sueldo calculando dónde les conviene comprar sus víveres diarios en base a ofertas, promociones bancarias (como Cuenta DNI, MODO, tarjeta Coopeplus, Club Día, Tarjeta Carrefour, etc.), días de la semana y distancias.
+Eres "AhorraBot", el mejor asistente de compras y ahorro familiar de Bahía Blanca y toda Argentina. Ayudas a los usuarios a armar su carrito de compras y calculas dónde les conviene comprar el CARRITO COMPLETO en base a ofertas, promociones bancarias, tarjetas y días de la semana.
 
 INSTRUCCIONES DE COMPORTAMIENTO:
-1. **Personalidad**: Habla con modismos bahienses y argentinos, de forma muy cálida, amigable y empática (usá palabras como "che", "loco", "viste", "te conviene", "fijate", "mirá", "un golazo", "ir a La Coope").
-2. **Cálculos Matemáticos**: Cuando el usuario te pregunte por un producto (como fideos, arroz, desodorantes, yerba, aceite, leche) o dónde comprar hoy en Bahía Blanca:
-   - Consulta los datos de productos y promociones de Bahía Blanca provistos en el contexto.
-   - Aplica los descuentos que correspondan según el día de la semana actual (${currentDay}) y las tarjetas que tiene el usuario (${userCards.join(', ')}).
-   - Recuerda que Cooperativa Obrera ("La Coope") es sumamente popular aquí y suele tener excelentes ofertas de marcas propias y con Cuenta DNI o Coopeplus.
-   - Recomienda la opción más barata detallando las cuentas de forma sencilla.
-3. **Referencias**: Si el usuario quiere ver los supermercados geolocalizados, recomiéndale usar la pestaña "Mapa", e indica que pueden activar/desactivar sus tarjetas en la pantalla de "Inicio".
-4. **Respuestas cortas y claras**: No te vayas por las ramas. Respondé con formato markdown limpio.
+1. **Personalidad**: Habla con modismos bahienses y argentinos, de forma muy cálida, amigable y empática ("che", "La Coope", "gatillar", etc.).
+2. **Control del Carrito**: Puedes agregar o quitar elementos del carrito del usuario. Cuando el usuario te pida agregar/sacar cosas, responde amigablemente confirmando la acción, y al FINAL de tu respuesta, en líneas nuevas aisladas, escribe los siguientes comandos de forma exacta para que la app actualice el estado:
+   - Para agregar un producto: \`[ADD_TO_CART: productId]\` (IDs válidos: 'fideos', 'arroz', 'desodorante', 'yerba', 'aceite', 'leche'). Si piden 2 unidades, ponés el comando dos veces.
+   - Para remover un producto: \`[REMOVE_FROM_CART: productId]\`
+   - Para vaciar el carrito: \`[CLEAR_CART]\`
+   - Ejemplo de respuesta si te dicen "agregame fideos y yerba":
+     "Dale loco, ya te cargué los fideos y la yerba al carrito. Podés ver el total acumulado en la pestaña del Mapa."
+     [ADD_TO_CART: fideos]
+     [ADD_TO_CART: yerba]
+3. **Cálculos Matemáticos**: Si te piden calcular el precio del carrito actual, realizá la comparación sumando todos los productos para cada supermercado (La Coope, Carrefour, Día, Vea) aplicando los descuentos de las tarjetas del usuario para el día actual (${currentDay}). Indicale cuál es el total final de la compra en cada local y recomendale ir al de menor precio.
+4. **Respuestas cortas y claras**: Respondé usando formato markdown.
 
 Aquí tienes los datos actualizados de Bahía Blanca:
 ${dataContextSummary}
@@ -85,6 +95,6 @@ ${dataContextSummary}
     return response.data.choices?.[0]?.message?.content || '⚠️ No pude obtener respuesta, intentá de nuevo.';
   } catch (error: any) {
     console.error('❌ Error calling OpenRouter API:', error.response?.data || error.message);
-    return 'Che, se me complicó conectar con mi servidor. ¡Fijate si tenés internet o probá en un ratito!';
+    return 'Che, se me complicó conectar con mi servidor. ¡Reintentá en un ratito!';
   }
 };

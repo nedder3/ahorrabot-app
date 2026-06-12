@@ -14,9 +14,11 @@ import {
 import styled from 'styled-components/native';
 import { useAuth } from '../../context/auth-context';
 import { useAppTheme } from '../../context/theme-context';
+import { useCart } from '../../context/cart-context';
 import { fetchBotResponse, ChatMessage } from '../../services/openrouter';
 import { VoiceMic } from '../../components/voice-mic';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // Styled Components
 const Container = styled.SafeAreaView`
@@ -29,6 +31,12 @@ const ChatHeader = styled.View`
   background-color: ${props => props.theme.colors.primary};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.border};
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeaderLeft = styled.View`
   flex-direction: row;
   align-items: center;
 `;
@@ -57,6 +65,26 @@ const HeaderStatus = styled.Text`
   font-weight: 700;
 `;
 
+const CartBadge = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  background-color: ${props => props.theme.colors.accent};
+  border-radius: 12px;
+  padding: 6px 12px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.1;
+  shadow-radius: 2px;
+  elevation: 2;
+`;
+
+const CartBadgeText = styled.Text`
+  color: #0F172A;
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 4px;
+`;
+
 const MessageList = styled.ScrollView.attrs({
   contentContainerStyle: {
     padding: 16,
@@ -64,7 +92,6 @@ const MessageList = styled.ScrollView.attrs({
   },
 })``;
 
-// Message Bubble Styles
 const BubbleContainer = styled.View<{ isUser: boolean }>`
   align-self: ${props => props.isUser ? 'flex-end' : 'flex-start'};
   max-width: 80%;
@@ -149,6 +176,8 @@ const SendButton = styled.TouchableOpacity`
 export default function ChatScreen() {
   const { cards } = useAuth();
   const { theme } = useAppTheme();
+  const { cart, addToCart, removeFromCart, clearCart } = useCart();
+  const router = useRouter();
   
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'bot'; text: string; time: string }>>([
     {
@@ -160,6 +189,8 @@ export default function ChatScreen() {
   const [input, setInput] = useState('');
   const [botLoading, setBotLoading] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const getCapitalizedDay = () => {
     const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
@@ -183,11 +214,37 @@ export default function ChatScreen() {
       apiHistory.push({ role: 'user', content: text });
 
       const currentDay = getCapitalizedDay();
-      const botResponse = await fetchBotResponse(apiHistory, cards, currentDay);
+      const botResponse = await fetchBotResponse(apiHistory, cards, currentDay, cart);
+      
+      // Parse chatbot cart trigger commands
+      let cleanText = botResponse;
+      let match;
+
+      // ADD_TO_CART Command parsing
+      const addRegex = /\[ADD_TO_CART:\s*(\w+)\]/g;
+      while ((match = addRegex.exec(botResponse)) !== null) {
+        addToCart(match[1]);
+      }
+      cleanText = cleanText.replace(addRegex, '');
+
+      // REMOVE_FROM_CART Command parsing
+      const removeRegex = /\[REMOVE_FROM_CART:\s*(\w+)\]/g;
+      while ((match = removeRegex.exec(botResponse)) !== null) {
+        removeFromCart(match[1]);
+      }
+      cleanText = cleanText.replace(removeRegex, '');
+
+      // CLEAR_CART Command parsing
+      if (botResponse.includes('[CLEAR_CART]')) {
+        clearCart();
+        cleanText = cleanText.replace(/\[CLEAR_CART\]/g, '');
+      }
+
+      cleanText = cleanText.trim();
       
       setMessages(prev => [...prev, {
         sender: 'bot',
-        text: botResponse,
+        text: cleanText || '¡Entendido, che!',
         time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
       }]);
     } catch (e) {
@@ -217,13 +274,20 @@ export default function ChatScreen() {
   return (
     <Container>
       <ChatHeader>
-        <BotAvatar>
-          <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
-        </BotAvatar>
-        <HeaderTitleContainer>
-          <HeaderTitle>AhorraBot Bahía</HeaderTitle>
-          <HeaderStatus>En línea • Ahorrando</HeaderStatus>
-        </HeaderTitleContainer>
+        <HeaderLeft>
+          <BotAvatar>
+            <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
+          </BotAvatar>
+          <HeaderTitleContainer>
+            <HeaderTitle>AhorraBot Bahía</HeaderTitle>
+            <HeaderStatus>En línea • Carrito Activo</HeaderStatus>
+          </HeaderTitleContainer>
+        </HeaderLeft>
+
+        <CartBadge onPress={() => router.push('/map' as any)}>
+          <Ionicons name="cart" size={16} color="#0F172A" />
+          <CartBadgeText>{cartItemCount} items</CartBadgeText>
+        </CartBadge>
       </ChatHeader>
 
       <KeyboardAvoidingView
@@ -244,7 +308,7 @@ export default function ChatScreen() {
           {botLoading && (
             <LoadingBubble>
               <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginRight: 8 }} />
-              <Text style={{ color: theme.colors.textSecondary, fontSize: 14 }}>Calculando promociones...</Text>
+              <Text style={{ color: theme.colors.textSecondary, fontSize: 14 }}>Calculando carrito...</Text>
             </LoadingBubble>
           )}
         </MessageList>
@@ -252,7 +316,7 @@ export default function ChatScreen() {
         <InputBar>
           <TextInputWrapper>
             <StyledTextInput
-              placeholder="Preguntale algo a AhorraBot..."
+              placeholder="Escribí o decile algo al bot..."
               placeholderTextColor={theme.colors.textSecondary}
               value={input}
               onChangeText={setInput}
