@@ -4,6 +4,7 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { AuthProvider, useAuth } from '../context/auth-context';
 import { ThemeProvider, useAppTheme } from '../context/theme-context';
+import { CartProvider } from '../context/cart-context';
 import { StatusBar } from 'expo-status-bar';
 
 function RootLayoutNav() {
@@ -47,10 +48,12 @@ function RootLayoutNav() {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <ThemeProvider>
-        <RootLayoutNav />
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <CartProvider>
+        <ThemeProvider>
+          <RootLayoutNav />
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </CartProvider>
     </AuthProvider>
   );
 }
