@@ -5,36 +5,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const lightTheme = {
   colors: {
-    background: '#F8FAFC',
+    background: '#FAFBFD', // soft clean white
     card: '#FFFFFF',
-    text: '#0F172A',
+    text: '#1E293B',
     textSecondary: '#64748B',
-    primary: '#0D9488', // Teal 600
-    primaryLight: '#CCFBF1',
+    primary: '#DC2626', // Consumerism Red (600)
+    primaryLight: '#FEE2E2', // soft light red (100)
     border: '#E2E8F0',
-    accent: '#F59E0B',
+    accent: '#F59E0B', // Promotional Yellow/Amber (500)
     danger: '#EF4444',
-    bubbleUser: '#0D9488',
-    bubbleBot: '#F1F5F9',
+    bubbleUser: '#DC2626', // User chats in red
+    bubbleBot: '#F1F5F9', // Bot chats in soft white/gray
     textUser: '#FFFFFF',
-    textBot: '#0F172A',
+    textBot: '#1E293B',
   }
 };
 
 export const darkTheme = {
   colors: {
-    background: '#0F172A',
-    card: '#1E293B',
+    background: '#120202', // Very dark maroon/black
+    card: '#270808', // Dark deep red card
     text: '#F8FAFC',
-    textSecondary: '#94A3B8',
-    primary: '#14B8A6', // Teal 500
-    primaryLight: '#134E4A',
-    border: '#334155',
-    accent: '#FBBF24',
+    textSecondary: '#FDA4AF', // soft rose-300
+    primary: '#EF4444', // Red-500
+    primaryLight: '#7F1D1D', // dark maroon (900)
+    border: '#450A0A',
+    accent: '#FBBF24', // Yellow-400
     danger: '#F87171',
-    bubbleUser: '#14B8A6',
-    bubbleBot: '#1E293B',
-    textUser: '#0F172A',
+    bubbleUser: '#EF4444',
+    bubbleBot: '#270808',
+    textUser: '#FFFFFF',
     textBot: '#F8FAFC',
   }
 };
@@ -51,7 +51,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isDark, setIsDark] = useState<boolean>(false);
 
   useEffect(() => {
-    // Load theme preference
     const loadTheme = async () => {
       try {
         const savedTheme = await AsyncStorage.getItem('theme_preference');
