@@ -1,0 +1,277 @@
+// app/(tabs)/chat.tsx
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  View,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
+import styled from 'styled-components/native';
+import { useAuth } from '../../context/auth-context';
+import { useAppTheme } from '../../context/theme-context';
+import { fetchBotResponse, ChatMessage } from '../../services/openrouter';
+import { VoiceMic } from '../../components/voice-mic';
+import { Ionicons } from '@expo/vector-icons';
+
+// Styled Components
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: ${props => props.theme.colors.background};
+`;
+
+const ChatHeader = styled.View`
+  padding: 16px 20px;
+  background-color: ${props => props.theme.colors.card};
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.border};
+  flex-direction: row;
+  align-items: center;
+`;
+
+const BotAvatar = styled.View`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: ${props => props.theme.colors.primaryLight};
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+`;
+
+const HeaderTitleContainer = styled.View``;
+
+const HeaderTitle = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.text};
+`;
+
+const HeaderStatus = styled.Text`
+  font-size: 12px;
+  color: ${props => props.theme.colors.primary};
+  font-weight: 600;
+`;
+
+const MessageList = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    padding: 16,
+    paddingBottom: 32,
+  },
+})``;
+
+// Message Bubble Styles
+const BubbleContainer = styled.View<{ isUser: boolean }>`
+  align-self: ${props => props.isUser ? 'flex-end' : 'flex-start'};
+  max-width: 80%;
+  margin-vertical: 6px;
+`;
+
+const BubbleText = styled.Text<{ isUser: boolean }>`
+  color: ${props => props.isUser ? props.theme.colors.textUser : props.theme.colors.textBot};
+  font-size: 15px;
+  line-height: 20px;
+`;
+
+const BubbleTime = styled.Text<{ isUser: boolean }>`
+  font-size: 10px;
+  color: ${props => props.isUser ? 'rgba(255,255,255,0.7)' : props.theme.colors.textSecondary};
+  align-self: flex-end;
+  margin-top: 4px;
+`;
+
+const BubbleCard = styled.View<{ isUser: boolean }>`
+  background-color: ${props => props.isUser ? props.theme.colors.bubbleUser : props.theme.colors.bubbleBot};
+  padding: 12px 16px;
+  border-radius: 18px;
+  border-bottom-right-radius: ${props => props.isUser ? '4px' : '18px'};
+  border-bottom-left-radius: ${props => props.isUser ? '18px' : '4px'};
+  border-width: 1px;
+  border-color: ${props => props.isUser ? 'transparent' : props.theme.colors.border};
+`;
+
+const LoadingBubble = styled.View`
+  background-color: ${props => props.theme.colors.bubbleBot};
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.border};
+  padding: 12px 16px;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  flex-direction: row;
+  align-items: center;
+  margin-vertical: 6px;
+  max-width: 80%;
+`;
+
+const InputBar = styled.View`
+  padding: 12px 16px;
+  background-color: ${props => props.theme.colors.card};
+  border-top-width: 1px;
+  border-top-color: ${props => props.theme.colors.border};
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TextInputWrapper = styled.View`
+  flex: 1;
+  background-color: ${props => props.theme.colors.background};
+  border-width: 1.5px;
+  border-color: ${props => props.theme.colors.border};
+  border-radius: 24px;
+  flex-direction: row;
+  align-items: center;
+  padding-horizontal: 16px;
+  margin-right: 8px;
+  height: 48px;
+`;
+
+const StyledTextInput = styled.TextInput`
+  flex: 1;
+  color: ${props => props.theme.colors.text};
+  font-size: 15px;
+  height: 100%;
+`;
+
+const SendButton = styled.TouchableOpacity`
+  background-color: ${props => props.theme.colors.primary};
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default function ChatScreen() {
+  const { cards } = useAuth();
+  const { theme } = useAppTheme();
+  
+  const [messages, setMessages] = useState<Array<{ sender: 'user' | 'bot'; text: string; time: string }>>([
+    {
+      sender: 'bot',
+      text: '¡Hola che! Soy AhorraBot, tu asistente personal de ahorro en supermercados 🇦🇷\n\nDecime qué andás buscando (ej. fideos, arroz, desodorante, yerba, aceite, leche) o contame qué tarjetas tenés activas y te digo dónde te conviene gatillar hoy.',
+      time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [botLoading, setBotLoading] = useState(false);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  // Capitalized day helper
+  const getCapitalizedDay = () => {
+    const rawDay = new Date().toLocaleDateString('es-AR', { weekday: 'long' });
+    return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
+  };
+
+  const handleSend = async (textToSend?: string) => {
+    const text = (textToSend || input).trim();
+    if (!text) return;
+
+    // Append user message
+    const currentTime = new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    setMessages(prev => [...prev, { sender: 'user', text, time: currentTime }]);
+    if (!textToSend) setInput('');
+    setBotLoading(true);
+
+    try {
+      // Map format for OpenRouter API
+      const apiHistory: ChatMessage[] = messages.map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.text
+      }));
+      // Append current message
+      apiHistory.push({ role: 'user', content: text });
+
+      const currentDay = getCapitalizedDay();
+      const botResponse = await fetchBotResponse(apiHistory, cards, currentDay);
+      
+      setMessages(prev => [...prev, {
+        sender: 'bot',
+        text: botResponse,
+        time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+      }]);
+    } catch (e) {
+      console.error(e);
+      setMessages(prev => [...prev, {
+        sender: 'bot',
+        text: 'Che, se me complicó conectar con mi servidor. ¡Reintentá en un ratito!',
+        time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+      }]);
+    } finally {
+      setBotLoading(false);
+    }
+  };
+
+  // Handle transcribed voice speech
+  const handleSpeechResult = (text: string) => {
+    if (text.trim()) {
+      handleSend(text);
+    }
+  };
+
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      setTimeout(() => scrollViewRef.current?.scrollToEnd({ animated: true }), 100);
+    }
+  }, [messages, botLoading]);
+
+  return (
+    <Container>
+      <ChatHeader>
+        <BotAvatar>
+          <Ionicons name="chatbubbles" size={24} color={theme.colors.primary} />
+        </BotAvatar>
+        <HeaderTitleContainer>
+          <HeaderTitle>AhorraBot</HeaderTitle>
+          <HeaderStatus>Asistente de Ahorro Activo</HeaderStatus>
+        </HeaderTitleContainer>
+      </ChatHeader>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      >
+        <MessageList ref={scrollViewRef}>
+          {messages.map((msg, index) => (
+            <BubbleContainer key={index} isUser={msg.sender === 'user'}>
+              <BubbleCard isUser={msg.sender === 'user'}>
+                <BubbleText isUser={msg.sender === 'user'}>{msg.text}</BubbleText>
+                <BubbleTime isUser={msg.sender === 'user'}>{msg.time}</BubbleTime>
+              </BubbleCard>
+            </BubbleContainer>
+          ))}
+
+          {botLoading && (
+            <LoadingBubble>
+              <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginRight: 8 }} />
+              <Text style={{ color: theme.colors.textSecondary, fontSize: 14 }}>Calculando precios...</Text>
+            </LoadingBubble>
+          )}
+        </MessageList>
+
+        <InputBar>
+          <TextInputWrapper>
+            <StyledTextInput
+              placeholder="Preguntale algo a AhorraBot..."
+              placeholderTextColor={theme.colors.textSecondary}
+              value={input}
+              onChangeText={setInput}
+              onSubmitEditing={() => handleSend()}
+              returnKeyType="send"
+            />
+            <VoiceMic onSpeechResult={handleSpeechResult} />
+          </TextInputWrapper>
+          
+          <SendButton onPress={() => handleSend()}>
+            <Ionicons name="send" size={20} color="#FFFFFF" />
+          </SendButton>
+        </InputBar>
+      </KeyboardAvoidingView>
+    </Container>
+  );
+}
