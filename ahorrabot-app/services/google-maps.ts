@@ -8,9 +8,9 @@ export interface GeolocatedStore extends Store {
   address: string;
 }
 
-// Default location: Obelisco, Buenos Aires
-const DEFAULT_LAT = -34.603722;
-const DEFAULT_LNG = -58.381592;
+// Default location: Bahía Blanca, Buenos Aires, Argentina
+const DEFAULT_LAT = -38.7183;
+const DEFAULT_LNG = -62.2724;
 
 export const getUserLocation = async (): Promise<{ latitude: number; longitude: number; address: string }> => {
   try {
@@ -19,7 +19,7 @@ export const getUserLocation = async (): Promise<{ latitude: number; longitude: 
       return {
         latitude: DEFAULT_LAT,
         longitude: DEFAULT_LNG,
-        address: 'Obelisco, CABA (Permiso denegado)'
+        address: 'Bahía Blanca, Buenos Aires (Permiso denegado)'
       };
     }
 
@@ -27,8 +27,7 @@ export const getUserLocation = async (): Promise<{ latitude: number; longitude: 
       accuracy: Location.Accuracy.Balanced
     });
     
-    // Attempt reverse geocoding to get a readable address
-    let address = 'Mi Ubicación';
+    let address = 'Bahía Blanca, Buenos Aires';
     try {
       const geocode = await Location.reverseGeocodeAsync({
         latitude: location.coords.latitude,
@@ -36,10 +35,10 @@ export const getUserLocation = async (): Promise<{ latitude: number; longitude: 
       });
       if (geocode && geocode.length > 0) {
         const place = geocode[0];
-        address = `${place.street || 'Calle'} ${place.streetNumber || ''}, ${place.city || place.subregion || 'Buenos Aires'}`;
+        address = `${place.street || 'Calle'} ${place.streetNumber || ''}, ${place.city || 'Bahía Blanca'}`;
       }
     } catch (err) {
-      console.warn('Reverse geocoding failed:', err);
+      console.warn('Reverse geocoding failed, using Bahía Blanca default:', err);
     }
 
     return {
@@ -48,22 +47,22 @@ export const getUserLocation = async (): Promise<{ latitude: number; longitude: 
       address
     };
   } catch (error) {
-    console.error('Error getting location:', error);
+    console.error('Error getting location, fallback to Bahía Blanca:', error);
     return {
       latitude: DEFAULT_LAT,
       longitude: DEFAULT_LNG,
-      address: 'Obelisco, Buenos Aires (Fallback)'
+      address: 'Bahía Blanca, Buenos Aires (Fallback)'
     };
   }
 };
 
-// Returns stores with coordinates relative to the user's coordinates
+// Returns stores with coordinates relative to the user's coordinates in Bahía Blanca
 export const getNearbyStores = (userLat: number, userLng: number): GeolocatedStore[] => {
   const addressList: Record<string, string> = {
-    coto: 'Av. Cabildo 500, Belgrano',
-    carrefour: 'Av. Monroe 1800, Belgrano',
-    dia: 'Juramento 2400, Belgrano',
-    jumbo: 'Av. Int. Bullrich 345, Palermo'
+    coope: 'Av. Colón 80, Bahía Blanca',
+    carrefour: 'Av. Colón 200, Bahía Blanca',
+    dia: 'Chiclana 350, Bahía Blanca',
+    vea: 'Chiclana 180, Bahía Blanca'
   };
 
   return STORES.map(store => {
@@ -71,7 +70,7 @@ export const getNearbyStores = (userLat: number, userLng: number): GeolocatedSto
       ...store,
       latitude: userLat + store.latOffset,
       longitude: userLng + store.lngOffset,
-      address: addressList[store.id] || 'Dirección Cercana'
+      address: addressList[store.id] || 'Sucursal Bahía Blanca'
     };
   });
 };
