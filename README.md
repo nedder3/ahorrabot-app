@@ -65,18 +65,53 @@ Contiene un script independiente en Python (`scrape_bahia.py`) que:
 * Genera una base semilla en JSON (`scraped_prices.json`) para pre-cargar la app al iniciar.
 * Escribe reportes detallados en texto plano (`productos_bahia_blanca.txt`) con estadísticas y variaciones de costos.
 
+
+## 🔌 Integraciones de APIs y Servicios Externos
+
+Para resolver el problema del ahorro de manera dinámica y geolocalizada, AhorraBot integra múltiples APIs externas y servicios cloud estructurados:
+
+### 1. Motor de Inteligencia Artificial (OpenRouter API) 🧠🤖
+* **Endpoint**: `https://openrouter.ai/api/v1/chat/completions`
+* **Modelo**: `meta-llama/llama-3-8b-instruct:free` (u otros modelos configurables).
+* **Funcionalidad**: Procesa el lenguaje natural de los usuarios, analiza intenciones de agregar o remover productos, responde usando modismos locales y genera comandos específicos embebidos (`[ADD_TO_CART]`, `[REMOVE_FROM_CART]`) que la app intercepta en tiempo real para actualizar el estado del carrito sin intervención manual.
+
+### 2. APIs de E-Commerce de Supermercados (Sincronización en Background) 🛒⚡
+AhorraBot realiza peticiones HTTP directas en segundo plano a las APIs oficiales de comercio electrónico de las cadenas de supermercados para actualizar los precios locales diariamente:
+* **La Coope en Casa**: Petición a la API de Cooperativa Obrera (`https://api.lacoopeencasa.coop/api/buscar`) para obtener productos e ID interno, seguido de (`https://api.lacoopeencasa.coop/api/articulo/detalle`) para extraer precios y ofertas específicas por sucursal.
+* **Carrefour Argentina**: Consulta al catálogo público VTEX (`https://www.carrefour.com.ar/api/catalog_system/pub/products/search`) buscando las coincidencias de los productos por filtros de stock y precio.
+* **Vea Digital**: Consulta al motor VTEX de Cencosud (`https://www.vea.com.ar/api/catalog_system/pub/products/search`) para extraer el listado actualizado.
+* **MasOnline (ChangoMás)**: Consulta al catálogo de MasOnline (`https://www.masonline.com.ar/api/catalog_system/pub/products/search`) para verificar ofertas regionales.
+
+### 3. Geolocalización y Mapas (Google Maps, OpenStreetMap & Nominatim) 📍🗺️
+* **Expo Location**: Conexión con los servicios nativos de GPS de Android/iOS para obtener latitud y longitud en tiempo real.
+* **Nominatim Reverse Geocoding API**: Traduce las coordenadas geográficas obtenidas a direcciones físicas en Bahía Blanca (`https://nominatim.openstreetmap.org/reverse`) para mostrar la calle y barrio del usuario.
+* **Leaflet & OpenStreetMap**: Renderiza mapas dinámicos interactivos a través de un WebView aislado de forma segura, dibujando marcadores interactivos en las coordenadas exactas de las sucursales de supermercados mapeadas.
+
 ---
 
-## 🛠️ Tecnologías y Dependencias
+## 🛠️ Tecnologías, Librerías y Dependencias
 
-* **Framework**: React Native / Expo (v54.0.x)
-* **Lenguaje**: TypeScript
-* **Estilado**: Styled Components
-* **Base de Datos**: `expo-sqlite` / LocalStorage
-* **Mapas**: Leaflet API renderizado en WebView nativo
-* **IA**: Integración con OpenRouter API (Llama 3)
-* **Reconocimiento de Voz**: `@dev-amirzubair/react-native-voice` (New Architecture ready)
-* **Scraper**: Python 3 (Urllib / JSON)
+La arquitectura del proyecto está construida sobre tecnologías modernas y librerías clave del ecosistema de desarrollo móvil nativo:
+
+### Core Framework & Ruteo
+* **Expo SDK 54 / React Native 0.81**: Base nativa multiplataforma de última generación con soporte para TypeScript de tipado estricto.
+* **Expo Router**: Sistema de ruteo basado en archivos que provee layouts y route guarding robusto mediante contextos de autenticación.
+* **React Navigation**: Motor de navegación subyacente para pestañas inferiores (`bottom-tabs`) y pantallas apiladas (`stack`).
+
+### Interfaz Gráfica (UI/UX) y Animaciones
+* **Styled Components**: Estilado declarativo CSS-in-JS que permite inyectar el tema activo (Modo Claro/Oscuro) en tiempo de ejecución.
+* **React Native Reanimated (v4)**: Animaciones de alta performance corriendo directo en el hilo nativo de UI (requiere la Nueva Arquitectura activada).
+* **Ionicons (@expo/vector-icons)**: Set de iconos vectoriales consistentes para la interfaz.
+
+### Almacenamiento y Conectividad
+* **Expo SQLite**: Driver local de base de datos SQL relacional ultrarrápido para persistencia de pedidos y caché local de precios.
+* **AsyncStorage**: Almacenamiento rápido de pares clave-valor en disco local para guardar configuraciones rápidas del usuario y tokens de sesión.
+* **Axios**: Cliente HTTP robusto con interceptores para gestionar timeouts y reintentos ante fallas de red con las APIs de supermercados.
+
+### Servicios de Dispositivo
+* **@dev-amirzubair/react-native-voice**: Módulo nativo para captura de voz y transcripción (Speech-To-Text) adaptado para compatibilidad con el entorno moderno de Android Gradle.
+* **Expo Haptics**: Generación de vibraciones y micro-feedback táctil físico ante interacciones como dictar voz, vaciar el carrito o guardar pedidos.
+* **Expo WebView**: Contenedor aislado para renderizar páginas externas de mapas y enlaces web de delivery oficiales.
 
 ---
 
