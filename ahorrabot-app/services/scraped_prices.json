@@ -1,0 +1,322 @@
+[
+  {
+    "productId": "fideos",
+    "storeId": "coope",
+    "price": 699
+  },
+  {
+    "productId": "fideos",
+    "storeId": "vea",
+    "price": 799
+  },
+  {
+    "productId": "fideos",
+    "storeId": "dia",
+    "price": 879
+  },
+  {
+    "productId": "fideos",
+    "storeId": "carrefour",
+    "price": 1173
+  },
+  {
+    "productId": "arroz",
+    "storeId": "coope",
+    "price": 1099
+  },
+  {
+    "productId": "arroz",
+    "storeId": "vea",
+    "price": 1099
+  },
+  {
+    "productId": "arroz",
+    "storeId": "dia",
+    "price": 1265
+  },
+  {
+    "productId": "arroz",
+    "storeId": "carrefour",
+    "price": 1280
+  },
+  {
+    "productId": "yerba",
+    "storeId": "dia",
+    "price": 2676
+  },
+  {
+    "productId": "yerba",
+    "storeId": "coope",
+    "price": 2990
+  },
+  {
+    "productId": "yerba",
+    "storeId": "carrefour",
+    "price": 3419
+  },
+  {
+    "productId": "yerba",
+    "storeId": "vea",
+    "price": 4450
+  },
+  {
+    "productId": "aceite",
+    "storeId": "dia",
+    "price": 3779
+  },
+  {
+    "productId": "aceite",
+    "storeId": "vea",
+    "price": 4150
+  },
+  {
+    "productId": "aceite",
+    "storeId": "carrefour",
+    "price": 4405
+  },
+  {
+    "productId": "aceite",
+    "storeId": "coope",
+    "price": 5690
+  },
+  {
+    "productId": "azucar",
+    "storeId": "coope",
+    "price": 1190
+  },
+  {
+    "productId": "azucar",
+    "storeId": "carrefour",
+    "price": 1199
+  },
+  {
+    "productId": "azucar",
+    "storeId": "vea",
+    "price": 1264
+  },
+  {
+    "productId": "azucar",
+    "storeId": "dia",
+    "price": 1399
+  },
+  {
+    "productId": "harina",
+    "storeId": "vea",
+    "price": 799
+  },
+  {
+    "productId": "harina",
+    "storeId": "dia",
+    "price": 899
+  },
+  {
+    "productId": "harina",
+    "storeId": "carrefour",
+    "price": 989
+  },
+  {
+    "productId": "harina",
+    "storeId": "coope",
+    "price": 1190
+  },
+  {
+    "productId": "agua",
+    "storeId": "carrefour",
+    "price": 1188
+  },
+  {
+    "productId": "agua",
+    "storeId": "dia",
+    "price": 1500
+  },
+  {
+    "productId": "agua",
+    "storeId": "vea",
+    "price": 2450
+  },
+  {
+    "productId": "agua",
+    "storeId": "coope",
+    "price": 3050
+  },
+  {
+    "productId": "leche",
+    "storeId": "coope",
+    "price": 1690
+  },
+  {
+    "productId": "leche",
+    "storeId": "dia",
+    "price": 1749
+  },
+  {
+    "productId": "leche",
+    "storeId": "vea",
+    "price": 1750
+  },
+  {
+    "productId": "leche",
+    "storeId": "carrefour",
+    "price": 2610
+  },
+  {
+    "productId": "manteca",
+    "storeId": "vea",
+    "price": 627
+  },
+  {
+    "productId": "manteca",
+    "storeId": "carrefour",
+    "price": 2200
+  },
+  {
+    "productId": "manteca",
+    "storeId": "coope",
+    "price": 2890
+  },
+  {
+    "productId": "manteca",
+    "storeId": "dia",
+    "price": 3339
+  },
+  {
+    "productId": "yogur",
+    "storeId": "dia",
+    "price": 1559
+  },
+  {
+    "productId": "yogur",
+    "storeId": "coope",
+    "price": 2890
+  },
+  {
+    "productId": "yogur",
+    "storeId": "vea",
+    "price": 3350
+  },
+  {
+    "productId": "yogur",
+    "storeId": "carrefour",
+    "price": 3389
+  },
+  {
+    "productId": "desodorante",
+    "storeId": "dia",
+    "price": 3366
+  },
+  {
+    "productId": "desodorante",
+    "storeId": "carrefour",
+    "price": 4489
+  },
+  {
+    "productId": "desodorante",
+    "storeId": "coope",
+    "price": 4590
+  },
+  {
+    "productId": "desodorante",
+    "storeId": "vea",
+    "price": 4750
+  },
+  {
+    "productId": "champu",
+    "storeId": "dia",
+    "price": 4699
+  },
+  {
+    "productId": "champu",
+    "storeId": "carrefour",
+    "price": 4794
+  },
+  {
+    "productId": "champu",
+    "storeId": "vea",
+    "price": 5700
+  },
+  {
+    "productId": "champu",
+    "storeId": "coope",
+    "price": 5890
+  },
+  {
+    "productId": "dental",
+    "storeId": "carrefour",
+    "price": 2349
+  },
+  {
+    "productId": "dental",
+    "storeId": "dia",
+    "price": 4100
+  },
+  {
+    "productId": "dental",
+    "storeId": "vea",
+    "price": 5200
+  },
+  {
+    "productId": "dental",
+    "storeId": "coope",
+    "price": 5848
+  },
+  {
+    "productId": "detergente",
+    "storeId": "carrefour",
+    "price": 1734
+  },
+  {
+    "productId": "detergente",
+    "storeId": "coope",
+    "price": 1990
+  },
+  {
+    "productId": "detergente",
+    "storeId": "dia",
+    "price": 2679
+  },
+  {
+    "productId": "detergente",
+    "storeId": "vea",
+    "price": 4512
+  },
+  {
+    "productId": "lavandina",
+    "storeId": "vea",
+    "price": 238
+  },
+  {
+    "productId": "lavandina",
+    "storeId": "carrefour",
+    "price": 1455
+  },
+  {
+    "productId": "lavandina",
+    "storeId": "dia",
+    "price": 1619
+  },
+  {
+    "productId": "lavandina",
+    "storeId": "coope",
+    "price": 3400
+  },
+  {
+    "productId": "jabon_ropa",
+    "storeId": "carrefour",
+    "price": 1964
+  },
+  {
+    "productId": "jabon_ropa",
+    "storeId": "coope",
+    "price": 2583
+  },
+  {
+    "productId": "jabon_ropa",
+    "storeId": "vea",
+    "price": 5900
+  },
+  {
+    "productId": "jabon_ropa",
+    "storeId": "dia",
+    "price": 13269
+  }
+]

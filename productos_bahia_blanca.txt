@@ -1,0 +1,778 @@
+=========================================================================
+     REPORTE DE PRECIOS Y PRODUCTOS EN SUPERMERCADOS DE BAHÍA BLANCA     
+=========================================================================
+Fecha de Extracción: 11/06/2026 22:55:07
+Tiempo de ejecución: 111.27 segundos
+Localidad: Bahía Blanca, Provincia de Buenos Aires, Argentina
+Supermercados Monitoreados:
+  - Cooperativa Obrera (La Coope)
+  - Carrefour Market
+  - Vea Supermercados
+  - Hiper ChangoMás
+=========================================================================
+
+-------------------------------------------------------------------------
+SUCURSALES DE REFERENCIA EN BAHÍA BLANCA
+-------------------------------------------------------------------------
+
+* Cooperativa Obrera (La Coope):
+  - Sarmiento 2153 (Hiper Shopping)
+  - Paraguay 445 (Universitario)
+  - Roca 34
+  - Vieytes 2139 (San Roque)
+  - Alem 3170
+  - Washington 437 (Villa Mitre)
+  - Avellaneda 826 (Noroeste)
+  - 9 de Julio 136 (Almafuerte)
+  - Alsina 645 (Centro)
+  - Av. Colón 1380 (Colón)
+  - Zelarrayán y Rodríguez (Centro)
+
+* Carrefour Market:
+  - Brown 51 (Bahía Blanca)
+
+* Vea Supermercados:
+  - Eliseo Casanova 472
+  - Capitán Martínez 1356
+
+* Hiper ChangoMás:
+  - Av. Sarmiento 4114 (Bahía Blanca)
+
+=========================================================================
+
+#########################################################################
+ RUBRO: ALMACÉN
+#########################################################################
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Fideos tallarin 500g'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+La Coope           | $699.00    | Disponible | FAVORITA        | FIDEOS FAVORITA TALLARÍN 500grs                             
+Vea                | $799.00    | Disponible | La Providencia  | Fideos Tallarin La Providencia                              
+La Coope           | $849.00    | Disponible | PRIMER PRECIO   | FIDEOS PRIMER PRECIO TALLARINES 500grs                      
+ChangoMás          | $879.00    | Disponible | Aliada          | Fideos Aliada Tallarin 500 G                                
+ChangoMás          | $999.00    | Disponible | Favorita        | Fideos Tallarin Favorita 500 G                              
+Carrefour Market   | $1,173.90  | Disponible | Carrefour       | Fideos cinta tallarin Carrefour classic 500 g.              
+La Coope           | $1,499.00  | Disponible | LUCCHETTI       | FIDEOS LUCCHETTI TALLARÍN N°5 500grs                        
+Carrefour Market   | $1,599.00  | Disponible | Matarazzo       | Fideos tallarin N5 Lucchetti 500 g.                         
+Vea                | $1,850.00  | Disponible | ARCOR           | Codito Arcor Pastas Secas  500 Gr                           
+Vea                | $1,866.00  | Disponible | MATARAZZO       | Fideos Matarazzo Tallarín N5 X500g                          
+ChangoMás          | $2,099.00  | Disponible | Lucchetti       | Fideos Lucchetti Tallarín 500 G                             
+Carrefour Market   | $2,550.00  | Disponible | Carrefour       | Tallarines finos al huevo Carrefour 500 g.                  
+
+Enlaces a los productos:
+  * [La Coope] FIDEOS FAVORITA TALLARÍN 500grs ($699.00):
+    https://www.lacoopeencasa.coop/productos/detalle/209823
+  * [Vea] Fideos Tallarin La Providencia ($799.00):
+    https://www.vea.com.ar/fideos-tallarin-la-providencia/p
+  * [La Coope] FIDEOS PRIMER PRECIO TALLARINES 500grs ($849.00):
+    https://www.lacoopeencasa.coop/productos/detalle/318536
+  * [ChangoMás] Fideos Aliada Tallarin 500 G ($879.00):
+    https://www.masonline.com.ar/fideos-secos-tallarin-acuenta-500-gr-2/p
+  * [ChangoMás] Fideos Tallarin Favorita 500 G ($999.00):
+    https://www.masonline.com.ar/fideos-tallarin-favorita-500-gr/p
+  * [Carrefour Market] Fideos cinta tallarin Carrefour classic 500 g. ($1,173.90):
+    https://www.carrefour.com.ar/fideos-cinta-tallarin-carrefour-classic-500-g-690043/p
+  * [La Coope] FIDEOS LUCCHETTI TALLARÍN N°5 500grs ($1,499.00):
+    https://www.lacoopeencasa.coop/productos/detalle/309327
+  * [Carrefour Market] Fideos tallarin N5 Lucchetti 500 g. ($1,599.00):
+    https://www.carrefour.com.ar/fideos-tallarin-n5-lucchetti-500-g-726311/p
+  * [Vea] Codito Arcor Pastas Secas  500 Gr ($1,850.00):
+    https://www.vea.com.ar/codito-arcor-pastas-secas-500-gr/p
+  * [Vea] Fideos Matarazzo Tallarín N5 X500g ($1,866.00):
+    https://www.vea.com.ar/fideos-matarazzo-tallarin-n5-x500g-2/p
+  * [ChangoMás] Fideos Lucchetti Tallarín 500 G ($2,099.00):
+    https://www.masonline.com.ar/fideos-tallarin-lucchetti-500-g-2/p
+  * [Carrefour Market] Tallarines finos al huevo Carrefour 500 g. ($2,550.00):
+    https://www.carrefour.com.ar/tallarines-finos-al-huevo-carrefour-500-g/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Arroz largo fino 1kg'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+La Coope           | $1,099.00  | Disponible | PRIMER PRECIO   | ARROZ PRIMER PRECIO LARGO FINO 00000 1kgs                   
+Vea                | $1,099.00  | Disponible | VANGUARDIA      | Arroz Largo Fino Vanguardia 1 Kg                            
+ChangoMás          | $1,265.65  | Disponible | Check           | Arroz Check Largo Fino 1 Kg                                 
+Carrefour Market   | $1,280.00  | Disponible | Bulnez          | Arroz largo fino Bulnez 1 kg                                
+Vea                | $1,350.00  | Disponible | APOSTOLES       | Arroz Largo Fino 1 Kg Apostoles                             
+La Coope           | $1,459.00  | Disponible | CAÑUELAS        | ARROZ CAÑUELAS GRANO LARGO FINO 00000 1kgs                  
+La Coope           | $1,590.00  | Disponible | DOS HERMANOS    | ARROZ DOS HERMANOS LARGO FINO 00000 1kgs                    
+Carrefour Market   | $1,786.67  | Disponible | Molinos Ala     | Arroz largo fino Molinos Ala 1 kg.                          
+ChangoMás          | $1,899.00  | Disponible | Dos Hermanos    | Arroz Largo Fino Dos Hermanos 1 Kg                          
+Carrefour Market   | $1,959.00  | Disponible | Lucchetti       | Arroz largo fino 00000 Lucchetti 1 kg.                      
+ChangoMás          | $1,959.00  | Disponible | Lucchetti       | Arroz Largo Fino Lucchetti 1 Kg                             
+Vea                | $2,050.00  | Disponible | LUCCHETTI       | Arroz Grano Largo Fino 1 Kg Lucchetti                       
+
+Enlaces a los productos:
+  * [La Coope] ARROZ PRIMER PRECIO LARGO FINO 00000 1kgs ($1,099.00):
+    https://www.lacoopeencasa.coop/productos/detalle/281758
+  * [Vea] Arroz Largo Fino Vanguardia 1 Kg ($1,099.00):
+    https://www.vea.com.ar/arroz-largo-fino-vanguardia-1-kg/p
+  * [ChangoMás] Arroz Check Largo Fino 1 Kg ($1,265.65):
+    https://www.masonline.com.ar/arroz-largo-fino-great-value-1-kg-2/p
+  * [Carrefour Market] Arroz largo fino Bulnez 1 kg ($1,280.00):
+    https://www.carrefour.com.ar/arroz-largo-fino-bulnez-1-kg-762897/p
+  * [Vea] Arroz Largo Fino 1 Kg Apostoles ($1,350.00):
+    https://www.vea.com.ar/arroz-apostoles-grano-largo-1-kg/p
+  * [La Coope] ARROZ CAÑUELAS GRANO LARGO FINO 00000 1kgs ($1,459.00):
+    https://www.lacoopeencasa.coop/productos/detalle/298783
+  * [La Coope] ARROZ DOS HERMANOS LARGO FINO 00000 1kgs ($1,590.00):
+    https://www.lacoopeencasa.coop/productos/detalle/283904
+  * [Carrefour Market] Arroz largo fino Molinos Ala 1 kg. ($1,786.67):
+    https://www.carrefour.com.ar/arroz-largo-fino-molinos-ala-1-kg/p
+  * [ChangoMás] Arroz Largo Fino Dos Hermanos 1 Kg ($1,899.00):
+    https://www.masonline.com.ar/arroz-largo-fino-dos-hermanos-1-kg-2/p
+  * [Carrefour Market] Arroz largo fino 00000 Lucchetti 1 kg. ($1,959.00):
+    https://www.carrefour.com.ar/arroz-largo-fino-00000-lucchetti-1-kg-726297/p
+  * [ChangoMás] Arroz Largo Fino Lucchetti 1 Kg ($1,959.00):
+    https://www.masonline.com.ar/arroz-largo-fino-lucchetti-1kg-2-2/p
+  * [Vea] Arroz Grano Largo Fino 1 Kg Lucchetti ($2,050.00):
+    https://www.vea.com.ar/arroz-largo-fino-luchetti-1-kg/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Yerba mate con palo 1kg'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+ChangoMás          | $2,676.75  | Disponible | Liebig          | Yerba Mate Liebig Con Palo 500 Gr                           
+La Coope           | $2,990.00  | Disponible | AMANDA          | YERBA MATE AMANDA TRADICIONAL CON PALO 1000grs              
+Carrefour Market   | $3,419.00  | Disponible | Chamigo         | Yerba mate Chamigo con palo sin tacc 1 kg.                  
+ChangoMás          | $4,399.00  | Disponible | Romance         | Yerba Mate Romance Con Palo 1 Kg                            
+Vea                | $4,450.00  | Disponible | ROSAMONTE       | Yerba Mate con Palo Suave 1 Kg Rosamonte                    
+Carrefour Market   | $4,499.00  | Disponible | Romance         | Yerba mate Romance con palo original 1 kg.                  
+Carrefour Market   | $4,919.00  | Disponible | Playadito       | Yerba mate Playadito suave con palo 1 kg.                   
+ChangoMás          | $4,989.00  | Disponible | Amanda          | Yerba Mate Amanda Con Palo 1 Kg                             
+Vea                | $5,250.00  | Disponible | MAÑANITA        | Yerba Mate con Palo 1 Kg Mañanita                           
+La Coope           | $5,490.00  | Disponible | TARAGUI         | YERBA MATE TARAGÜI CON PALO 1000grs                         
+La Coope           | $5,490.00  | Disponible | UNION           | YERBA MATE UNIÓN SUAVE ORIGINAL CON PALO 1000grs            
+Vea                | $5,850.00  | Disponible | UNION           | Yerba Mate con Palo Liviana 1 Kg Union                      
+
+Enlaces a los productos:
+  * [ChangoMás] Yerba Mate Liebig Con Palo 500 Gr ($2,676.75):
+    https://www.masonline.com.ar/yerba-mate-liebig-con-palo-500-gr-2/p
+  * [La Coope] YERBA MATE AMANDA TRADICIONAL CON PALO 1000grs ($2,990.00):
+    https://www.lacoopeencasa.coop/productos/detalle/212170
+  * [Carrefour Market] Yerba mate Chamigo con palo sin tacc 1 kg. ($3,419.00):
+    https://www.carrefour.com.ar/yerba-mate-chamigo-con-palo-sin-tacc-1-kg/p
+  * [ChangoMás] Yerba Mate Romance Con Palo 1 Kg ($4,399.00):
+    https://www.masonline.com.ar/yerba-mate-romance-con-palo-1-kg-2/p
+  * [Vea] Yerba Mate con Palo Suave 1 Kg Rosamonte ($4,450.00):
+    https://www.vea.com.ar/yerba-mate-con-palo-suave-rosamonte-1-kg/p
+  * [Carrefour Market] Yerba mate Romance con palo original 1 kg. ($4,499.00):
+    https://www.carrefour.com.ar/yerba-mate-romance-con-palo-original-1-kg-720000/p
+  * [Carrefour Market] Yerba mate Playadito suave con palo 1 kg. ($4,919.00):
+    https://www.carrefour.com.ar/yerba-mate-playadito-suave-con-palo-1-kg/p
+  * [ChangoMás] Yerba Mate Amanda Con Palo 1 Kg ($4,989.00):
+    https://www.masonline.com.ar/yarba-mate-amanda-con-palo-x-1-kg-2/p
+  * [Vea] Yerba Mate con Palo 1 Kg Mañanita ($5,250.00):
+    https://www.vea.com.ar/yerba-mate-4flex-mananita-1-kg/p
+  * [La Coope] YERBA MATE TARAGÜI CON PALO 1000grs ($5,490.00):
+    https://www.lacoopeencasa.coop/productos/detalle/280971
+  * [La Coope] YERBA MATE UNIÓN SUAVE ORIGINAL CON PALO 1000grs ($5,490.00):
+    https://www.lacoopeencasa.coop/productos/detalle/284479
+  * [Vea] Yerba Mate con Palo Liviana 1 Kg Union ($5,850.00):
+    https://www.vea.com.ar/yerba-mate-union-4flex-liviana-1kg/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Aceite de girasol 1.5l'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+ChangoMás          | $3,779.00  | Disponible | Legítimo        | Aceite De Girasol Legítimo 900 Ml                           
+ChangoMás          | $4,089.00  | Disponible | Cocinero        | Aceite De Girasol Cocinero 900 Ml                           
+Vea                | $4,150.00  | Disponible | COCINERO        | Aceite De Girasol 900 Ml Cocinero                           
+Carrefour Market   | $4,405.00  | Disponible | Natura          | Aceite de girasol Natura 900 cc.                            
+Carrefour Market   | $4,420.00  | Disponible | Pureza          | Aceite de girasol Pureza 900 cc.                            
+ChangoMás          | $5,234.25  | Disponible | Natura          | Aceite De Girasol Natura 1.5 L                              
+La Coope           | $5,690.00  | Disponible | NATURA          | ACEITE DE GIRASOL NATURA 1500cm3                            
+La Coope           | $5,950.00  | Disponible | LEGITIMO        | ACEITE DE GIRASOL LEGÍTIMO 1500cm3                          
+Vea                | $6,389.00  | Disponible | COCINERO        | Aceite De Girasol Cocinero 1.5 L                            
+La Coope           | $6,450.00  | Disponible | COCINERO        | ACEITE DE GIRASOL COCINERO 1500cm3                          
+Vea                | $6,875.00  | Disponible | NATURA          | Aceite De Girasol1.5 L Natura                               
+Carrefour Market   | $6,980.00  | Disponible | Pureza          | Aceite de girasol Pureza 1500 cc.                           
+
+Enlaces a los productos:
+  * [ChangoMás] Aceite De Girasol Legítimo 900 Ml ($3,779.00):
+    https://www.masonline.com.ar/aceite-de-girasol-legitimo-900ml-2/p
+  * [ChangoMás] Aceite De Girasol Cocinero 900 Ml ($4,089.00):
+    https://www.masonline.com.ar/aceite-de-girasol-cocinero-900-ml-3/p
+  * [Vea] Aceite De Girasol 900 Ml Cocinero ($4,150.00):
+    https://www.vea.com.ar/aceite-de-girasol-900-ml-cocinero/p
+  * [Carrefour Market] Aceite de girasol Natura 900 cc. ($4,405.00):
+    https://www.carrefour.com.ar/aceite-de-girasol-natura-900-cc/p
+  * [Carrefour Market] Aceite de girasol Pureza 900 cc. ($4,420.00):
+    https://www.carrefour.com.ar/aceite-de-girasol-pureza-900-cc/p
+  * [ChangoMás] Aceite De Girasol Natura 1.5 L ($5,234.25):
+    https://www.masonline.com.ar/aceite-de-girasol-natura-1-5-lt-2/p
+  * [La Coope] ACEITE DE GIRASOL NATURA 1500cm3 ($5,690.00):
+    https://www.lacoopeencasa.coop/productos/detalle/106844
+  * [La Coope] ACEITE DE GIRASOL LEGÍTIMO 1500cm3 ($5,950.00):
+    https://www.lacoopeencasa.coop/productos/detalle/443006
+  * [Vea] Aceite De Girasol Cocinero 1.5 L ($6,389.00):
+    https://www.vea.com.ar/aceite-de-girasol-cocinero-1-5-l/p
+  * [La Coope] ACEITE DE GIRASOL COCINERO 1500cm3 ($6,450.00):
+    https://www.lacoopeencasa.coop/productos/detalle/164240
+  * [Vea] Aceite De Girasol1.5 L Natura ($6,875.00):
+    https://www.vea.com.ar/aceite-de-girasol1-5-l-natura/p
+  * [Carrefour Market] Aceite de girasol Pureza 1500 cc. ($6,980.00):
+    https://www.carrefour.com.ar/aceite-de-girasol-pureza-1500-cc/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Azucar comun tipo a 1kg'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+La Coope           | $1,190.00  | Disponible | LA PROVIDENCIA  | AZÚCAR LA PROVIDENCIA COMÚN TIPO A 1kgs                     
+Carrefour Market   | $1,199.00  | Disponible | Bulnez          | Azúcar común Bulnez 1 kg                                    
+Vea                | $1,264.00  | Disponible | AZUCEL          | Azucar Azucel X 1kg                                         
+Carrefour Market   | $1,270.00  | Disponible | Tassara         | Harina de trigo Tassara tipo 0000 x 1 kg                    
+Vea                | $1,350.00  | Sin Stock  | SIC             | Azúcar Común Tipo A 1 Kg Sic                                
+Carrefour Market   | $1,390.00  | Sin Stock  | La Perla        | Azúcar común tipo A La Perla 1 kg                           
+ChangoMás          | $1,399.00  | Disponible | Check           | Azucar Check Comun Tipo A 1kg                               
+Vea                | $1,400.00  | Sin Stock  | ANCASTE         | Azúcar común tipo A 1 Kg Ancaste                            
+La Coope           | $1,489.00  | Disponible | LEDESMA         | AZÚCAR LEDESMA CLÁSICA COMÚN TIPO A 1kgs                    
+La Coope           | $3,190.00  | Disponible | PRIMER PRECIO   | COPOS DE MAIZ AZUCARADOS PRIMER PRECIO 500grs               
+ChangoMás          | S/D        | Sin Stock  | Genérico        | Azúcar Común Tipo A  Dul C 1 Kg                             
+ChangoMás          | S/D        | Sin Stock  | La Providencia  | Azúcar Comun La Providencia Tipo A 1kg                      
+
+Enlaces a los productos:
+  * [La Coope] AZÚCAR LA PROVIDENCIA COMÚN TIPO A 1kgs ($1,190.00):
+    https://www.lacoopeencasa.coop/productos/detalle/294205
+  * [Carrefour Market] Azúcar común Bulnez 1 kg ($1,199.00):
+    https://www.carrefour.com.ar/azucar-comun-bulnez-1-kg-773203/p
+  * [Vea] Azucar Azucel X 1kg ($1,264.00):
+    https://www.vea.com.ar/azucar-azucel-x-1kg/p
+  * [Carrefour Market] Harina de trigo Tassara tipo 0000 x 1 kg ($1,270.00):
+    https://www.carrefour.com.ar/harina-de-trigo-tassara-tipo-0000-x-1-kg-697160/p
+  * [Vea] Azúcar Común Tipo A 1 Kg Sic ($1,350.00):
+    https://www.vea.com.ar/azucar-molida-sic-1-kg-2/p
+  * [Carrefour Market] Azúcar común tipo A La Perla 1 kg ($1,390.00):
+    https://www.carrefour.com.ar/azucar-comun-tipo-a-la-perla-1-kg-778368/p
+  * [ChangoMás] Azucar Check Comun Tipo A 1kg ($1,399.00):
+    https://www.masonline.com.ar/azucar-check-comun-tipo-a-1kg-2/p
+  * [Vea] Azúcar común tipo A 1 Kg Ancaste ($1,400.00):
+    https://www.vea.com.ar/azucar-ancaste-paquete-1-kg/p
+  * [La Coope] AZÚCAR LEDESMA CLÁSICA COMÚN TIPO A 1kgs ($1,489.00):
+    https://www.lacoopeencasa.coop/productos/detalle/253486
+  * [La Coope] COPOS DE MAIZ AZUCARADOS PRIMER PRECIO 500grs ($3,190.00):
+    https://www.lacoopeencasa.coop/productos/detalle/278247
+  * [ChangoMás] Azúcar Común Tipo A  Dul C 1 Kg (S/D):
+    https://www.masonline.com.ar/azucar-comun-tipo-a-dul-c-1-kg-2/p
+  * [ChangoMás] Azúcar Comun La Providencia Tipo A 1kg (S/D):
+    https://www.masonline.com.ar/azucar-comun-la-providencia-tipo-a-1kg-2/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Harina de trigo 000 1kg'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Vea                | $799.00    | Disponible | VALLE FERTIL    | Harina De Trigo 000 X 1 Kg Valle Fertil                     
+ChangoMás          | $899.00    | Disponible | Caserita        | Harina De Trigo Caserita Tipo 000 1 Kg                      
+Vea                | $900.00    | Disponible | CASERITA        | Harina 000 1 Kg Caserita                                    
+Carrefour Market   | $989.00    | Disponible | Chacabuco       | Harina de trigo 000 Chacabuco 1 kg.                         
+Carrefour Market   | $999.00    | Disponible | Morixe          | Harina de trigo Morixe 000 1 kg.                            
+ChangoMás          | $1,039.00  | Disponible | Chacabuco       | Harina De Trigo Chacabuco 000 1 Kg                          
+Vea                | $1,050.00  | Disponible | MORIXE          | Harina 000 Morixe 1 Kg                                      
+ChangoMás          | $1,109.00  | Disponible | Favorita        | Harina De Trigo Favorita 000 1 Kg                           
+Carrefour Market   | $1,115.00  | Disponible | Pureza          | Harina de trigo 000 Pureza 1 kg.                            
+La Coope           | $1,190.00  | Disponible | MORIXE          | HARINA DE TRIGO MORIXE INTEGRAL MOLIENDA FINA 1000grs       
+La Coope           | $1,329.00  | Disponible | MORIXE          | HARINA DE TRIGO MORIXE 0000 1000grs                         
+La Coope           | $1,390.00  | Disponible | COOPERATIVA     | HARINA DE TRIGO LEUDANTE COOPERATIVA 1000grs                
+
+Enlaces a los productos:
+  * [Vea] Harina De Trigo 000 X 1 Kg Valle Fertil ($799.00):
+    https://www.vea.com.ar/harina-de-trigo-000-x-1-kg-valle-fertil/p
+  * [ChangoMás] Harina De Trigo Caserita Tipo 000 1 Kg ($899.00):
+    https://www.masonline.com.ar/harina-000-caserita-x-1-kg-2/p
+  * [Vea] Harina 000 1 Kg Caserita ($900.00):
+    https://www.vea.com.ar/harina-caserita-000-1-kg/p
+  * [Carrefour Market] Harina de trigo 000 Chacabuco 1 kg. ($989.00):
+    https://www.carrefour.com.ar/harina-de-trigo-000-chacabuco-1-kg/p
+  * [Carrefour Market] Harina de trigo Morixe 000 1 kg. ($999.00):
+    https://www.carrefour.com.ar/harina-de-trigo-morixe-000-1-kg/p
+  * [ChangoMás] Harina De Trigo Chacabuco 000 1 Kg ($1,039.00):
+    https://www.masonline.com.ar/harina-000-chacabuco-x-1-kg-2/p
+  * [Vea] Harina 000 Morixe 1 Kg ($1,050.00):
+    https://www.vea.com.ar/harina-000-morixe-1-kg/p
+  * [ChangoMás] Harina De Trigo Favorita 000 1 Kg ($1,109.00):
+    https://www.masonline.com.ar/harina-de-trigo-favorita-000-1-kg-2/p
+  * [Carrefour Market] Harina de trigo 000 Pureza 1 kg. ($1,115.00):
+    https://www.carrefour.com.ar/harina-de-trigo-000-pureza-1-kg/p
+  * [La Coope] HARINA DE TRIGO MORIXE INTEGRAL MOLIENDA FINA 1000grs ($1,190.00):
+    https://www.lacoopeencasa.coop/productos/detalle/285683
+  * [La Coope] HARINA DE TRIGO MORIXE 0000 1000grs ($1,329.00):
+    https://www.lacoopeencasa.coop/productos/detalle/939048
+  * [La Coope] HARINA DE TRIGO LEUDANTE COOPERATIVA 1000grs ($1,390.00):
+    https://www.lacoopeencasa.coop/productos/detalle/317379
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Agua mineral sin gas 1.5l'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Carrefour Market   | $1,188.00  | Disponible | Carrefour       | Agua mineral sin gas Carrefour Classic 2 lts                
+ChangoMás          | $1,500.85  | Disponible | Nestle          | Agua Mineral Sin Gas Nestle Pureza Vital 1.5lt              
+ChangoMás          | $1,699.15  | Disponible | Smartwater      | Agua Mineral Smartwater Sin Gas 591ml                       
+Carrefour Market   | $1,999.00  | Disponible | Smart Water     | Agua mineral sin gas Smartwater 591 ml                      
+Vea                | $2,450.00  | Disponible | SMART WATER     | Agua Sin Gas 1.5 Lts Smart Water                            
+ChangoMás          | $2,699.00  | Disponible | Villavicencio   | Agua Mineral Villavicencio Sin Gas 1.5 L                    
+La Coope           | $3,050.00  | Disponible | VILLAVICENCIO   | AGUA MINERAL SIN GAS VILLAVICENCIO 2000cm3                  
+Carrefour Market   | $3,050.00  | Disponible | Villavicencio   | Agua mineral sin gas Villavicencio 2 lts                    
+Vea                | $3,050.00  | Disponible | ECO DE LOS AN... | Agua Mineral con Gas 1,5 Lts Eco de los Andes               
+La Coope           | $3,187.00  | Disponible | ECO DE LOS AN... | AGUA MINERAL SIN GAS ECO DE LOS ANDES 2000cm3               
+La Coope           | $3,496.00  | Disponible | GLACIAR         | AGUA MINERALIZADA SIN GAS GLACIAR 2000cm3                   
+Vea                | $3,500.00  | Disponible | GLACIAR         | Agua Mineral Sin Gas 2 Lts Glaciar                          
+
+Enlaces a los productos:
+  * [Carrefour Market] Agua mineral sin gas Carrefour Classic 2 lts ($1,188.00):
+    https://www.carrefour.com.ar/agua-mineral-sin-gas-carrefour-classic-2-lts-398986/p
+  * [ChangoMás] Agua Mineral Sin Gas Nestle Pureza Vital 1.5lt ($1,500.85):
+    https://www.masonline.com.ar/agua-mineral-sin-gas-nestle-pureza-vital-1-5lt-2/p
+  * [ChangoMás] Agua Mineral Smartwater Sin Gas 591ml ($1,699.15):
+    https://www.masonline.com.ar/agua-sin-gas-smartwater-591ml-2/p
+  * [Carrefour Market] Agua mineral sin gas Smartwater 591 ml ($1,999.00):
+    https://www.carrefour.com.ar/agua-mineral-sin-gas-smartwater-591-ml-651806/p
+  * [Vea] Agua Sin Gas 1.5 Lts Smart Water ($2,450.00):
+    https://www.vea.com.ar/agua-smart-water-sin-gas-1-5lt/p
+  * [ChangoMás] Agua Mineral Villavicencio Sin Gas 1.5 L ($2,699.00):
+    https://www.masonline.com.ar/agua-mineral-villavicencio-sin-gas-1-5-l-2-2/p
+  * [La Coope] AGUA MINERAL SIN GAS VILLAVICENCIO 2000cm3 ($3,050.00):
+    https://www.lacoopeencasa.coop/productos/detalle/311061
+  * [Carrefour Market] Agua mineral sin gas Villavicencio 2 lts ($3,050.00):
+    https://www.carrefour.com.ar/agua-mineral-sin-gas-villavicencio-2-lts-727428/p
+  * [Vea] Agua Mineral con Gas 1,5 Lts Eco de los Andes ($3,050.00):
+    https://www.vea.com.ar/agua-eco-de-los-andes-con-gas-botella-1-5ltx1/p
+  * [La Coope] AGUA MINERAL SIN GAS ECO DE LOS ANDES 2000cm3 ($3,187.00):
+    https://www.lacoopeencasa.coop/productos/detalle/122688
+  * [La Coope] AGUA MINERALIZADA SIN GAS GLACIAR 2000cm3 ($3,496.00):
+    https://www.lacoopeencasa.coop/productos/detalle/132870
+  * [Vea] Agua Mineral Sin Gas 2 Lts Glaciar ($3,500.00):
+    https://www.vea.com.ar/agua-glaciar-sin-gas-botella-2ltx1/p
+
+
+#########################################################################
+ RUBRO: LÁCTEOS
+#########################################################################
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Leche entera larga vida 1l'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+La Coope           | $1,690.00  | Disponible | COOPERATIVA     | LECHE LARGA VIDA COOPERATIVA ENTERA 1lts                    
+ChangoMás          | $1,749.00  | Disponible | Yatasto         | Leche Entera Larga Vida Yatasto 1 L                         
+Vea                | $1,750.00  | Disponible | CASANTO         | Leche Entera 3casanto 1l                                    
+La Coope           | $1,849.00  | Disponible | LA SERENISIMA   | LECHE LA SERENISIMA CLÁSICA ENTERA 3% SACHET 1lts           
+La Coope           | $2,250.00  | Disponible | TREGAR          | LECHE LARGA VIDA TREGAR ENTERA 1lts                         
+Carrefour Market   | $2,610.00  | Disponible | Las Tres Niñas  | Leche entera larga vida Las tres niñas 1 l.                 
+Carrefour Market   | $2,610.00  | Disponible | Las Tres Niñas  | Leche descremada larga vida Las tres niñas 1 l.             
+ChangoMás          | $2,679.00  | Disponible | La Serenísima   | Leche Entera La Serenisima Larga Vida Clásica 1 L           
+Vea                | $2,786.00  | Disponible | LA SERENISIMA   | Leche La Serenisima Entera Bot 1l                           
+Carrefour Market   | $2,800.00  | Disponible | La Serenísima   | Leche entera larga vida La Serenísima 2 % 1 l.              
+ChangoMás          | $2,809.00  | Disponible | La Serenísima   | Leche Entera La Serenísima Larga Vida Clásica 1 L           
+Vea                | $2,874.00  | Disponible | LA SERENISIMA   | Leche La Serenisima Zerolact Bot 1l                         
+
+Enlaces a los productos:
+  * [La Coope] LECHE LARGA VIDA COOPERATIVA ENTERA 1lts ($1,690.00):
+    https://www.lacoopeencasa.coop/productos/detalle/752541
+  * [ChangoMás] Leche Entera Larga Vida Yatasto 1 L ($1,749.00):
+    https://www.masonline.com.ar/leche-entera-larga-vida-yatasto-1-lt-2/p
+  * [Vea] Leche Entera 3casanto 1l ($1,750.00):
+    https://www.vea.com.ar/leche-entera-3casanto-1l/p
+  * [La Coope] LECHE LA SERENISIMA CLÁSICA ENTERA 3% SACHET 1lts ($1,849.00):
+    https://www.lacoopeencasa.coop/productos/detalle/715058
+  * [La Coope] LECHE LARGA VIDA TREGAR ENTERA 1lts ($2,250.00):
+    https://www.lacoopeencasa.coop/productos/detalle/230420
+  * [Carrefour Market] Leche entera larga vida Las tres niñas 1 l. ($2,610.00):
+    https://www.carrefour.com.ar/leche-entera-larga-vida-las-tres-ninas-1-l/p
+  * [Carrefour Market] Leche descremada larga vida Las tres niñas 1 l. ($2,610.00):
+    https://www.carrefour.com.ar/leche-descremada-larga-vida-las-tres-ninas-1-l/p
+  * [ChangoMás] Leche Entera La Serenisima Larga Vida Clásica 1 L ($2,679.00):
+    https://www.masonline.com.ar/leche-la-serenisima-larga-vida-clasica-1-l-2/p
+  * [Vea] Leche La Serenisima Entera Bot 1l ($2,786.00):
+    https://www.vea.com.ar/leche-la-serenisima-entera-bot-1l/p
+  * [Carrefour Market] Leche entera larga vida La Serenísima 2 % 1 l. ($2,800.00):
+    https://www.carrefour.com.ar/leche-entera-larga-vida-la-serenisima-2-1-l-660437/p
+  * [ChangoMás] Leche Entera La Serenísima Larga Vida Clásica 1 L ($2,809.00):
+    https://www.masonline.com.ar/leche-larga-vida-la-serenisima-clasica-1-l-2/p
+  * [Vea] Leche La Serenisima Zerolact Bot 1l ($2,874.00):
+    https://www.vea.com.ar/leche-la-serenisima-zerolact-bot-1l/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Manteca 200g'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Vea                | $627.07    | Sin Stock  | CASANTO         | Manteca Casanto 200g                                        
+Carrefour Market   | $2,200.00  | Disponible | Tía Maruca      | Galletitas Tía Maruca manteca 200 g.                        
+La Coope           | $2,890.00  | Disponible | PRIMER PRECIO   | MANTECA PRIMER PRECIO SIN SAL AGREGADA 200grs               
+La Coope           | $2,990.00  | Disponible | COOPERATIVA     | MANTECA COOPERATIVA 200grs                                  
+Carrefour Market   | $3,315.00  | Disponible | Primer Premio   | Manteca Primer Premio 200 g.                                
+ChangoMás          | $3,339.00  | Disponible | Principal       | Manteca Principal 200 G                                     
+La Coope           | $3,850.00  | Disponible | TONADITA        | MANTECA TONADITA CLÁSICA 200grs                             
+Vea                | $4,000.00  | Sin Stock  | MILKAUT         | Manteca Milkaut 200g                                        
+Vea                | $4,527.00  | Disponible | LA SERENISIMA   | Manteca Ls Bienestar Animal 200 G                           
+Carrefour Market   | $4,580.00  | Disponible | Ilolay          | Manteca extra calidad Ilolay 200 g.                         
+ChangoMás          | $4,619.00  | Disponible | Vacalin         | Manteca Vacalin 200 G                                       
+ChangoMás          | $5,099.00  | Disponible | Milkaut         | Manteca Milkaut 200 G                                       
+
+Enlaces a los productos:
+  * [Vea] Manteca Casanto 200g ($627.07):
+    https://www.vea.com.ar/manteca-casanto-200g/p
+  * [Carrefour Market] Galletitas Tía Maruca manteca 200 g. ($2,200.00):
+    https://www.carrefour.com.ar/galletitas-tia-maruca-manteca-200-g-577325/p
+  * [La Coope] MANTECA PRIMER PRECIO SIN SAL AGREGADA 200grs ($2,890.00):
+    https://www.lacoopeencasa.coop/productos/detalle/701728
+  * [La Coope] MANTECA COOPERATIVA 200grs ($2,990.00):
+    https://www.lacoopeencasa.coop/productos/detalle/706988
+  * [Carrefour Market] Manteca Primer Premio 200 g. ($3,315.00):
+    https://www.carrefour.com.ar/manteca-primer-premio-200-g/p
+  * [ChangoMás] Manteca Principal 200 G ($3,339.00):
+    https://www.masonline.com.ar/manteca-principal-200-g/p
+  * [La Coope] MANTECA TONADITA CLÁSICA 200grs ($3,850.00):
+    https://www.lacoopeencasa.coop/productos/detalle/707649
+  * [Vea] Manteca Milkaut 200g ($4,000.00):
+    https://www.vea.com.ar/manteca-milkaut-200g/p
+  * [Vea] Manteca Ls Bienestar Animal 200 G ($4,527.00):
+    https://www.vea.com.ar/manteca-ls-bienestar-animal-200-g/p
+  * [Carrefour Market] Manteca extra calidad Ilolay 200 g. ($4,580.00):
+    https://www.carrefour.com.ar/manteca-extra-calidad-ilolay-200-g-739074/p
+  * [ChangoMás] Manteca Vacalin 200 G ($4,619.00):
+    https://www.masonline.com.ar/manteca-vacalin-200-g/p
+  * [ChangoMás] Manteca Milkaut 200 G ($5,099.00):
+    https://www.masonline.com.ar/manteca-milkaut-x-200gr-2/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Yogur descremado 900g'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+ChangoMás          | $1,559.00  | Disponible | Tregar          | Yogur Tregar Descremado Anana 160 G                         
+La Coope           | $2,890.00  | Disponible | GRAN COMPRA     | YOGUR BEBIBLE PARCIALMENTE DESCREMADO GRAN COMPRA FRUTILLA...
+La Coope           | $2,890.00  | Disponible | GRAN COMPRA     | YOGUR BEBIBLE PARCIALMENTE DESCREMADO GRAN COMPRA VAINILLA...
+Vea                | $3,350.00  | Disponible | DAHÍ            | Yogur Dahí Descremado Colchón Frutillas 190g                
+Carrefour Market   | $3,389.00  | Disponible | Tregar          | Yogur descremado bebible Tregar de frutilla 900 g.          
+Carrefour Market   | $3,389.00  | Disponible | Tregar          | Yogur descremado bebible Tregar de vainilla 900 g.          
+Vea                | $3,400.00  | Disponible | TREGAR          | Yogur Tregar Descremado Frutilla 900g                       
+Vea                | $3,400.00  | Disponible | TREGAR          | Yogur Descremado Tregar Vainilla Sachet 900 Gr              
+La Coope           | $3,519.00  | Disponible | TREGAR          | YOGUR BEBIBLE SEMIDESCREMADO TREGAR ARÁNDANO SACHET 900grs  
+Carrefour Market   | $4,040.00  | Disponible | Milkaut         | Yogur descremado Milkaut de vainilla en sachet 900 g.       
+ChangoMás          | $4,419.00  | Disponible | La Serenísima   | Yogur Bebible Descremado La Serenísima Nutrición Activa Fr...
+ChangoMás          | $4,419.00  | Disponible | Milkaut         | Yogur Bebible Milkaut Frutilla 900 G                        
+
+Enlaces a los productos:
+  * [ChangoMás] Yogur Tregar Descremado Anana 160 G ($1,559.00):
+    https://www.masonline.com.ar/yogur-tregar-descremado-anana-160-g/p
+  * [La Coope] YOGUR BEBIBLE PARCIALMENTE DESCREMADO GRAN COMPRA FRUTILLA SACHET 900grs ($2,890.00):
+    https://www.lacoopeencasa.coop/productos/detalle/715496
+  * [La Coope] YOGUR BEBIBLE PARCIALMENTE DESCREMADO GRAN COMPRA VAINILLA SACHET 900grs ($2,890.00):
+    https://www.lacoopeencasa.coop/productos/detalle/715495
+  * [Vea] Yogur Dahí Descremado Colchón Frutillas 190g ($3,350.00):
+    https://www.vea.com.ar/yogur-dahi-descremado-colchon-frutillas-190g/p
+  * [Carrefour Market] Yogur descremado bebible Tregar de frutilla 900 g. ($3,389.00):
+    https://www.carrefour.com.ar/yogur-descremado-bebible-tregar-de-frutilla-900-g-718166/p
+  * [Carrefour Market] Yogur descremado bebible Tregar de vainilla 900 g. ($3,389.00):
+    https://www.carrefour.com.ar/yogur-descremado-bebible-tregar-de-vainilla-900-g-718167/p
+  * [Vea] Yogur Tregar Descremado Frutilla 900g ($3,400.00):
+    https://www.vea.com.ar/yogur-tregar-descremado-frutilla-900g/p
+  * [Vea] Yogur Descremado Tregar Vainilla Sachet 900 Gr ($3,400.00):
+    https://www.vea.com.ar/yogur-descremado-tregar-vainilla-sachet-900-gr/p
+  * [La Coope] YOGUR BEBIBLE SEMIDESCREMADO TREGAR ARÁNDANO SACHET 900grs ($3,519.00):
+    https://www.lacoopeencasa.coop/productos/detalle/715137
+  * [Carrefour Market] Yogur descremado Milkaut de vainilla en sachet 900 g. ($4,040.00):
+    https://www.carrefour.com.ar/yogur-descremado-milkaut-de-vainilla-en-sachet-900-g-719267/p
+  * [ChangoMás] Yogur Bebible Descremado La Serenísima Nutrición Activa Frutilla 900 G ($4,419.00):
+    https://www.masonline.com.ar/yogur-la-serenisima-sachet-clasico-descremado-sabor-frutilla-900-g-2/p
+  * [ChangoMás] Yogur Bebible Milkaut Frutilla 900 G ($4,419.00):
+    https://www.masonline.com.ar/yogur-sachet-frutilla-milkaut-900-gr-2/p
+
+
+#########################################################################
+ RUBRO: PERFUMERÍA / CUIDADO PERSONAL
+#########################################################################
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Desodorante antitranspirante 150ml'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+ChangoMás          | $3,366.75  | Disponible | Nivea Men       | Desodorante Antitranspirante Nivea Men Deep Darkwood 150 Ml 
+Carrefour Market   | $4,489.00  | Disponible | Nivea           | Desodorante antitranspirante femenino Nivea Fresh Coconut ...
+Carrefour Market   | $4,489.00  | Disponible | Nivea           | Desodorante antitranspirante Nivea Men Deep Darkwood en ae...
+Carrefour Market   | $4,489.00  | Disponible | Nivea           | Desodorante antitranspirante femenino Nivea Dry Comfort en...
+ChangoMás          | $4,559.00  | Disponible | Rexona          | Desodorante Antitranspirante Rexona Control Inteligente Co...
+La Coope           | $4,590.00  | Disponible | AXE             | DESODORANTE ANTITRANSPIRANTE AXE APOLLO AEROSOL 152cm3      
+Vea                | $4,750.00  | Disponible | REXONA          | Desodorante Antitranspirante Nutritive 150 Ml Rexona        
+ChangoMás          | $4,886.10  | Disponible | Dove            | Desodorante Antitranspirante Mujer Dove En Aerosol 150 Ml   
+Vea                | $5,419.00  | Disponible | DOVE            | Desodorante Antitranspirante Original 150 Ml Dove           
+Vea                | $5,419.00  | Disponible | DOVE            | Desodorante Antitranspirante Invisible Care Violeta y Fres...
+La Coope           | $5,590.00  | Disponible | DOVE            | DESODORANTE ANTITRANSPIRANTE DOVE MEN CARE INVISIBLE DRY A...
+La Coope           | $7,790.00  | Disponible | DOVE            | DESODORANTE ANTITRANSPIRANTE DOVE MEN COMFORT PROTECTION E...
+
+Enlaces a los productos:
+  * [ChangoMás] Desodorante Antitranspirante Nivea Men Deep Darkwood 150 Ml ($3,366.75):
+    https://www.masonline.com.ar/desodorante-antitranspirante-nivea-men-deep-darkwood-150-ml/p
+  * [Carrefour Market] Desodorante antitranspirante femenino Nivea Fresh Coconut en aerosol 150 ml ($4,489.00):
+    https://www.carrefour.com.ar/desodorante-antitranspirante-femenino-nivea-fresh-coconut-en-aerosol-150-ml-769598/p
+  * [Carrefour Market] Desodorante antitranspirante Nivea Men Deep Darkwood en aerosol 150 ml ($4,489.00):
+    https://www.carrefour.com.ar/desodorante-entitranspirante-nivea-men-deep-darkwood-en-aerosol-150-ml-759543/p
+  * [Carrefour Market] Desodorante antitranspirante femenino Nivea Dry Comfort en aerosol 150 ml ($4,489.00):
+    https://www.carrefour.com.ar/desodorate-antitranspirante-femenino-nivea-dry-comfort-en-aerosol-150-ml-769599/p
+  * [ChangoMás] Desodorante Antitranspirante Rexona Control Inteligente Cotton 150 Ml ($4,559.00):
+    https://www.masonline.com.ar/desodorante-antitranspirante-rexona-control-inteligente-cotton-150-ml/p
+  * [La Coope] DESODORANTE ANTITRANSPIRANTE AXE APOLLO AEROSOL 152cm3 ($4,590.00):
+    https://www.lacoopeencasa.coop/productos/detalle/196771
+  * [Vea] Desodorante Antitranspirante Nutritive 150 Ml Rexona ($4,750.00):
+    https://www.vea.com.ar/desodorante-rexona-nutritive-women-150-ml/p
+  * [ChangoMás] Desodorante Antitranspirante Mujer Dove En Aerosol 150 Ml ($4,886.10):
+    https://www.masonline.com.ar/desodorante-antitranspirante-mujer-dove-en-aerosol-150-ml-2/p
+  * [Vea] Desodorante Antitranspirante Original 150 Ml Dove ($5,419.00):
+    https://www.vea.com.ar/desodorante-femenino-dove-original-150ml/p
+  * [Vea] Desodorante Antitranspirante Invisible Care Violeta y Fresia Blanca 150 Ml Dove ($5,419.00):
+    https://www.vea.com.ar/antitranspirante-invisible-care-en-aerosol-150-ml-dove/p
+  * [La Coope] DESODORANTE ANTITRANSPIRANTE DOVE MEN CARE INVISIBLE DRY AEROSOL 150cm3 ($5,590.00):
+    https://www.lacoopeencasa.coop/productos/detalle/220968
+  * [La Coope] DESODORANTE ANTITRANSPIRANTE DOVE MEN COMFORT PROTECTION EN AEROSOL 250cm3 ($7,790.00):
+    https://www.lacoopeencasa.coop/productos/detalle/322968
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Shampoo 350ml'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+ChangoMás          | $4,699.00  | Disponible | Garnier Fructis | Shampoo Garnier Fructis Goodbye Daños 350 Ml                
+Carrefour Market   | $4,794.00  | Disponible | Fructis         | Shampoo Fructis recarga nutritiva 350 ml.                   
+Carrefour Market   | $4,794.01  | Disponible | Fructis         | Shampoo Fructis Oil Control 350 ml                          
+ChangoMás          | $5,319.00  | Disponible | Suave           | Shampoo Manzanilla Suave Kids 350ml                         
+Vea                | $5,700.00  | Disponible | FRUCTIS         | Shampoo Aloe Hidra Clean para Cabello Deshidratado 350 Ml ...
+La Coope           | $5,890.00  | Disponible | TRESEMME        | SHAMPOO TRESEMMÉ BRILLO LAMELAR 500cm3                      
+La Coope           | $5,989.00  | Disponible | PLUSBELLE       | SHAMPOO PLUSBELLE ESENCIA CONTROL FRIZZ 970cm3              
+La Coope           | $6,390.00  | Disponible | PANTENE         | SHAMPOO PANTENE DETOX 200cm3                                
+ChangoMás          | $7,989.00  | Disponible | Fructis         | Shampoo Fructis Hydraliss 350ml                             
+Vea                | $8,000.00  | Disponible | FRUCTIS         | Shampoo Goodbye Daños Oil Control 350 Ml Fructis            
+Vea                | $8,350.00  | Disponible | FRUCTIS         | Shampoo Fructis Hydraliss 350ml                             
+Carrefour Market   | $9,089.00  | Disponible | Bagovit         | Shampoo Bagovit nutrición profunda 350 ml                   
+
+Enlaces a los productos:
+  * [ChangoMás] Shampoo Garnier Fructis Goodbye Daños 350 Ml ($4,699.00):
+    https://www.masonline.com.ar/shampoo-garnier-fructis-goodbye-danos-350-ml/p
+  * [Carrefour Market] Shampoo Fructis recarga nutritiva 350 ml. ($4,794.00):
+    https://www.carrefour.com.ar/shampoo-fructis-recarga-nutritiva-350-ml-728204/p
+  * [Carrefour Market] Shampoo Fructis Oil Control 350 ml ($4,794.01):
+    https://www.carrefour.com.ar/shampoo-fructis-oil-control-350-ml-778485/p
+  * [ChangoMás] Shampoo Manzanilla Suave Kids 350ml ($5,319.00):
+    https://www.masonline.com.ar/shampoo-manzanilla-suave-kids-350ml-2/p
+  * [Vea] Shampoo Aloe Hidra Clean para Cabello Deshidratado 350 Ml Fructis ($5,700.00):
+    https://www.vea.com.ar/shampoo-fructis-aloe-hidra-clean-200ml/p
+  * [La Coope] SHAMPOO TRESEMMÉ BRILLO LAMELAR 500cm3 ($5,890.00):
+    https://www.lacoopeencasa.coop/productos/detalle/317085
+  * [La Coope] SHAMPOO PLUSBELLE ESENCIA CONTROL FRIZZ 970cm3 ($5,989.00):
+    https://www.lacoopeencasa.coop/productos/detalle/306934
+  * [La Coope] SHAMPOO PANTENE DETOX 200cm3 ($6,390.00):
+    https://www.lacoopeencasa.coop/productos/detalle/308238
+  * [ChangoMás] Shampoo Fructis Hydraliss 350ml ($7,989.00):
+    https://www.masonline.com.ar/shampoo-fructis-hydra-liss-350ml-2/p
+  * [Vea] Shampoo Goodbye Daños Oil Control 350 Ml Fructis ($8,000.00):
+    https://www.vea.com.ar/shampoo-fructis-oil-control-350ml/p
+  * [Vea] Shampoo Fructis Hydraliss 350ml ($8,350.00):
+    https://www.vea.com.ar/shampoo-fructis-hydraliss-350ml/p
+  * [Carrefour Market] Shampoo Bagovit nutrición profunda 350 ml ($9,089.00):
+    https://www.carrefour.com.ar/shampoo-bagovit-nutricion-profunda-350-ml-763602/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Crema dental 90g'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Carrefour Market   | $2,349.00  | Disponible | Odol            | Crema dental dople protección Odol 90 g.                    
+ChangoMás          | $4,100.85  | Disponible | Sensodyne       | Crema Dental Sensodyne Multiproteccion X 90g                
+ChangoMás          | $4,230.85  | Disponible | Sensodyne       | Crema Dental Sensodyne Niños Berry Twist 90 G               
+ChangoMás          | $5,108.35  | Disponible | Generico        | Crema Dental Sensodyne Protec Completa 90 G.                
+Vea                | $5,200.00  | Disponible | ODOL            | Crema Dental Doble Protección 180 Grs Odol                  
+La Coope           | $5,848.00  | Disponible | CASANCREM       | QUESO CREMA CASANCREM CLÁSICO POTE 290grs                   
+Vea                | $6,650.00  | Disponible | COLGATE         | Crema Dental Total Original Mint X 90 Grs Colgate           
+Vea                | $7,150.00  | Disponible | COLGATE         | Pasta Dental Colgate Luminous Charcoal 90 G                 
+Carrefour Market   | $7,769.00  | Disponible | Parodontax      | Crema dental Parodontax con fluor 90 g.                     
+Carrefour Market   | $8,050.00  | Disponible | Sensodyne       | Crema dental prot comp+antisarro Sensodyne 90 g.            
+La Coope           | $9,999.00  | Disponible | COREGA          | CREMA ADHESIVA DENTAL COREGA ULTRA SIN SABOR 40grs          
+La Coope           | $15,000.00 | Disponible | COREGA          | CREMA ADHESIVA DENTAL COREGA ULTRA SIN SABOR 70grs          
+
+Enlaces a los productos:
+  * [Carrefour Market] Crema dental dople protección Odol 90 g. ($2,349.00):
+    https://www.carrefour.com.ar/crema-dental-dople-proteccion-odol-90-g-738467/p
+  * [ChangoMás] Crema Dental Sensodyne Multiproteccion X 90g ($4,100.85):
+    https://www.masonline.com.ar/crema-dental-sensodyne-multiproteccion-x-90g-2/p
+  * [ChangoMás] Crema Dental Sensodyne Niños Berry Twist 90 G ($4,230.85):
+    https://www.masonline.com.ar/crema-dental-sensodyne-ninos-berry-twist-90-g/p
+  * [ChangoMás] Crema Dental Sensodyne Protec Completa 90 G. ($5,108.35):
+    https://www.masonline.com.ar/crema-dental-sensodyne-protec-completa-90-g-2/p
+  * [Vea] Crema Dental Doble Protección 180 Grs Odol ($5,200.00):
+    https://www.vea.com.ar/crema-dental-odol-doble-efecto-180g/p
+  * [La Coope] QUESO CREMA CASANCREM CLÁSICO POTE 290grs ($5,848.00):
+    https://www.lacoopeencasa.coop/productos/detalle/714609
+  * [Vea] Crema Dental Total Original Mint X 90 Grs Colgate ($6,650.00):
+    https://www.vea.com.ar/crema-dental-total-original-mint-x-90-grs-colgate/p
+  * [Vea] Pasta Dental Colgate Luminous Charcoal 90 G ($7,150.00):
+    https://www.vea.com.ar/pasta-dental-colgate-luminous-charcoal-90-g/p
+  * [Carrefour Market] Crema dental Parodontax con fluor 90 g. ($7,769.00):
+    https://www.carrefour.com.ar/crema-dental-parodontax-con-fluor-90-g-539415/p
+  * [Carrefour Market] Crema dental prot comp+antisarro Sensodyne 90 g. ($8,050.00):
+    https://www.carrefour.com.ar/crema-dental-prot-compplusantisarro-sensodyne-90-g-745307/p
+  * [La Coope] CREMA ADHESIVA DENTAL COREGA ULTRA SIN SABOR 40grs ($9,999.00):
+    https://www.lacoopeencasa.coop/productos/detalle/303282
+  * [La Coope] CREMA ADHESIVA DENTAL COREGA ULTRA SIN SABOR 70grs ($15,000.00):
+    https://www.lacoopeencasa.coop/productos/detalle/304869
+
+
+#########################################################################
+ RUBRO: LIMPIEZA
+#########################################################################
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Detergente lavavajillas 500ml'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Carrefour Market   | $1,734.85  | Disponible | Zorro           | Zorro Lavavajillas Limón 500 ml                             
+La Coope           | $1,990.00  | Disponible | LIMZUL          | DETERGENTE LAVAVAJILLAS LIMZUL FLORES ROSAS 750cm3          
+ChangoMás          | $2,679.00  | Disponible | Zorro           | Lavavajillas Zorro Limón 500 Ml                             
+La Coope           | $2,719.00  | Disponible | ZORRO           | DETERGENTE LAVAVAJILLAS ZORRO ORIGINAL LIMÓN 500cm3         
+ChangoMás          | $3,125.85  | Disponible | Magistral       | Detergente Magistral Ultra Limón 500 Ml                     
+ChangoMás          | $3,469.00  | Disponible | Ala             | Lavavajillas Ala Ultra Limon 500 Ml                         
+La Coope           | $4,200.00  | Disponible | CIF             | DETERGENTE CIF BIOACTIVE LIMA 500cm3                        
+Vea                | $4,512.00  | Disponible | MAGISTRAL       | Detergente para Lavavajillas Ultra Limón 500 Ml Magistral   
+Vea                | $4,512.00  | Disponible | MAGISTRAL       | Detergente para Lavavajillas Ultra Marina 500 Ml Magistral  
+Carrefour Market   | $4,625.00  | Disponible | Magistral       | Detergente Magistral Ultra Marina Botella 500 ml            
+Carrefour Market   | $4,625.00  | Disponible | Magistral       | Detergente Magistral Ultra Limón Botella 500 ml             
+Vea                | $5,950.00  | Disponible | MAGISTRAL       | Detergente para Lavavajillas Platinum Limón 500 Ml Magistral
+
+Enlaces a los productos:
+  * [Carrefour Market] Zorro Lavavajillas Limón 500 ml ($1,734.85):
+    https://www.carrefour.com.ar/zorro-lavavajillas-limon-500-ml-677336/p
+  * [La Coope] DETERGENTE LAVAVAJILLAS LIMZUL FLORES ROSAS 750cm3 ($1,990.00):
+    https://www.lacoopeencasa.coop/productos/detalle/315887
+  * [ChangoMás] Lavavajillas Zorro Limón 500 Ml ($2,679.00):
+    https://www.masonline.com.ar/lavavajillas-zorro-ultra-limon-500-ml-2/p
+  * [La Coope] DETERGENTE LAVAVAJILLAS ZORRO ORIGINAL LIMÓN 500cm3 ($2,719.00):
+    https://www.lacoopeencasa.coop/productos/detalle/284425
+  * [ChangoMás] Detergente Magistral Ultra Limón 500 Ml ($3,125.85):
+    https://www.masonline.com.ar/detergente-magistral-ultra-limon-en-botella-500-cc-2/p
+  * [ChangoMás] Lavavajillas Ala Ultra Limon 500 Ml ($3,469.00):
+    https://www.masonline.com.ar/lavavajillas-ala-ultra-limon-500-ml-2/p
+  * [La Coope] DETERGENTE CIF BIOACTIVE LIMA 500cm3 ($4,200.00):
+    https://www.lacoopeencasa.coop/productos/detalle/289632
+  * [Vea] Detergente para Lavavajillas Ultra Limón 500 Ml Magistral ($4,512.00):
+    https://www.vea.com.ar/detergente-ultra-limon-500-ml-magistral/p
+  * [Vea] Detergente para Lavavajillas Ultra Marina 500 Ml Magistral ($4,512.00):
+    https://www.vea.com.ar/detergente-ultra-marina-botella-500-ml-magistral/p
+  * [Carrefour Market] Detergente Magistral Ultra Marina Botella 500 ml ($4,625.00):
+    https://www.carrefour.com.ar/detergente-magistral-ultra-marina-en-botella-500-ml-741297/p
+  * [Carrefour Market] Detergente Magistral Ultra Limón Botella 500 ml ($4,625.00):
+    https://www.carrefour.com.ar/detergente-magistral-ultra-limon-en-botella-500-ml-741296/p
+  * [Vea] Detergente para Lavavajillas Platinum Limón 500 Ml Magistral ($5,950.00):
+    https://www.vea.com.ar/detergente-magistral-platinum-limon-ama-500ml/p
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Lavandina 1l'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Vea                | $238.13    | Sin Stock  | GIGANTE         | Lavandina Gigante 1 L                                       
+Carrefour Market   | $1,455.00  | Disponible | Ayudín          | Lavandina Ayudín original 1 l.                              
+Carrefour Market   | $1,520.00  | Disponible | Odex            | Lavandina Odex aditivada lavanda 1 l.                       
+ChangoMás          | $1,619.00  | Disponible | Querubin        | Lavandina Querubin Concentrada 1 L                          
+ChangoMás          | $1,779.00  | Disponible | Ayudin          | Lavandina Ayudín Triple Poder Lavanda 1 L                   
+ChangoMás          | $1,779.00  | Disponible | Ayudin          | Lavandina Ayudín Triple Poder Pureza Glaciar 1 L            
+Vea                | $1,900.00  | Disponible | AYUDIN          | Ayudin Pureza Glaciar Triple Poder 1l                       
+Carrefour Market   | $2,099.00  | Disponible | Ayudín          | Lavandina Ayudín anti-splash 1 l.                           
+Vea                | $2,200.00  | Disponible | AYUDIN          | Lavandina Ayudin Anti-splash 1 L                            
+La Coope           | $3,400.00  | Disponible | AYUDIN          | LAVANDINA EN GEL AYUDÍN ORIGINAL 700cm3                     
+La Coope           | $3,400.00  | Disponible | AYUDIN          | LAVANDINA EN GEL AYUDÍN CÍTRICA 700cm3                      
+La Coope           | $3,400.00  | Disponible | AYUDIN          | LAVANDINA EN GEL AYUDÍN MENTA 700cm3                        
+
+Enlaces a los productos:
+  * [Vea] Lavandina Gigante 1 L ($238.13):
+    https://www.vea.com.ar/lavandina-gigante-1-l/p
+  * [Carrefour Market] Lavandina Ayudín original 1 l. ($1,455.00):
+    https://www.carrefour.com.ar/lavandina-ayudin-original-1-l/p
+  * [Carrefour Market] Lavandina Odex aditivada lavanda 1 l. ($1,520.00):
+    https://www.carrefour.com.ar/lavandina-odex-aditivada-lavanda-1-l/p
+  * [ChangoMás] Lavandina Querubin Concentrada 1 L ($1,619.00):
+    https://www.masonline.com.ar/lavandina-querubin-concentrada-1-l/p
+  * [ChangoMás] Lavandina Ayudín Triple Poder Lavanda 1 L ($1,779.00):
+    https://www.masonline.com.ar/lavandina-ayudin-triple-poder-lavanda-1-l-2/p
+  * [ChangoMás] Lavandina Ayudín Triple Poder Pureza Glaciar 1 L ($1,779.00):
+    https://www.masonline.com.ar/lavandina-ayudin-triple-poder-pureza-glaciar-1-l-2/p
+  * [Vea] Ayudin Pureza Glaciar Triple Poder 1l ($1,900.00):
+    https://www.vea.com.ar/ayudin-pureza-glaciar-triple-poder-1l/p
+  * [Carrefour Market] Lavandina Ayudín anti-splash 1 l. ($2,099.00):
+    https://www.carrefour.com.ar/lavandina-ayudin-anti-splash-1-l/p
+  * [Vea] Lavandina Ayudin Anti-splash 1 L ($2,200.00):
+    https://www.vea.com.ar/lavandina-ayudin-anti-splash-1-l/p
+  * [La Coope] LAVANDINA EN GEL AYUDÍN ORIGINAL 700cm3 ($3,400.00):
+    https://www.lacoopeencasa.coop/productos/detalle/286411
+  * [La Coope] LAVANDINA EN GEL AYUDÍN CÍTRICA 700cm3 ($3,400.00):
+    https://www.lacoopeencasa.coop/productos/detalle/286412
+  * [La Coope] LAVANDINA EN GEL AYUDÍN MENTA 700cm3 ($3,400.00):
+    https://www.lacoopeencasa.coop/productos/detalle/286413
+
+
+-------------------------------------------------------------------------
+ Búsqueda: 'Jabon liquido ropa 3l'
+-------------------------------------------------------------------------
+Supermercado       | Precio     | Disponibilidad | Marca           | Nombre del Producto                                         
+---------------------------------------------------------------------------------------------------------------------------
+Carrefour Market   | $1,964.60  | Disponible | Carrefour       | Jabón líquido para ropa Carrefour ropa fina 450 cc.         
+Carrefour Market   | $1,999.00  | Disponible | Netic           | Jabón líquido para ropa Netic 800 g.                        
+La Coope           | $2,583.00  | Disponible | WOOLITE         | JABÓN LÍQUIDO WOOLITE ROPA OSCURA MATIC DOYPACK 450cm3      
+La Coope           | $3,690.00  | Disponible | ALA             | JABÓN LÍQUIDO ALA CAMELLITO ROPA FINA HIPOALERGÉNICO 450cm3 
+La Coope           | $5,204.50  | Disponible | WOOLITE         | JABÓN LÍQUIDO WOOLITE ROPA BEBÉ 900cm3                      
+Vea                | $5,900.00  | Disponible | HEROE           | Jabón Líquido para Ropa 3 Lts Héroe                         
+Carrefour Market   | $6,989.00  | Disponible | Netic           | Jabón líquido para ropa Netic 3 l.                          
+Vea                | $7,500.00  | Disponible | WOOLITE         | Woolite Jabón Líquido Para Ropa De Bebé Repuesto 900ml      
+ChangoMás          | $13,269.00 | Disponible | Ala             | Jabón Líquido Para Ropa Ala Lavado Total 3 L                
+Vea                | $15,269.00 | Disponible | ARIEL           | Jabón Líquido para Ropa Platinum 3 Lts Ariel                
+ChangoMás          | $15,339.00 | Disponible | Ariel           | Jabón Líquido Para Ropa Ariel Platinum 3 L                  
+ChangoMás          | $16,829.00 | Disponible | Ariel           | Jabón Líquido Para Ropa Ariel Platinum En Botella 3l        
+
+Enlaces a los productos:
+  * [Carrefour Market] Jabón líquido para ropa Carrefour ropa fina 450 cc. ($1,964.60):
+    https://www.carrefour.com.ar/jabon-liquido-para-ropa-carrefour-ropa-fina-450-cc/p
+  * [Carrefour Market] Jabón líquido para ropa Netic 800 g. ($1,999.00):
+    https://www.carrefour.com.ar/jabon-liquido-para-ropa-netic-800-g/p
+  * [La Coope] JABÓN LÍQUIDO WOOLITE ROPA OSCURA MATIC DOYPACK 450cm3 ($2,583.00):
+    https://www.lacoopeencasa.coop/productos/detalle/312771
+  * [La Coope] JABÓN LÍQUIDO ALA CAMELLITO ROPA FINA HIPOALERGÉNICO 450cm3 ($3,690.00):
+    https://www.lacoopeencasa.coop/productos/detalle/308666
+  * [La Coope] JABÓN LÍQUIDO WOOLITE ROPA BEBÉ 900cm3 ($5,204.50):
+    https://www.lacoopeencasa.coop/productos/detalle/266881
+  * [Vea] Jabón Líquido para Ropa 3 Lts Héroe ($5,900.00):
+    https://www.vea.com.ar/jabon-liquido-para-ropa-heroe-3-lts/p
+  * [Carrefour Market] Jabón líquido para ropa Netic 3 l. ($6,989.00):
+    https://www.carrefour.com.ar/jabon-liquido-para-ropa-netic-3-l/p
+  * [Vea] Woolite Jabón Líquido Para Ropa De Bebé Repuesto 900ml ($7,500.00):
+    https://www.vea.com.ar/woolite-jabon-liquido-para-ropa-de-bebe-repuesto-900ml/p
+  * [ChangoMás] Jabón Líquido Para Ropa Ala Lavado Total 3 L ($13,269.00):
+    https://www.masonline.com.ar/jabon-liquido-para-ropa-ala-eco-lavado-doypack-3-litros-2/p
+  * [Vea] Jabón Líquido para Ropa Platinum 3 Lts Ariel ($15,269.00):
+    https://www.vea.com.ar/jabon-liquido-ropa-3-lts-ariel/p
+  * [ChangoMás] Jabón Líquido Para Ropa Ariel Platinum 3 L ($15,339.00):
+    https://www.masonline.com.ar/jabon-liquido-para-ropa-ariel-platinum-3-l-2/p
+  * [ChangoMás] Jabón Líquido Para Ropa Ariel Platinum En Botella 3l ($16,829.00):
+    https://www.masonline.com.ar/jabon-liquido-para-ropa-ariel-platinum-en-botella-3l-2/p
+
+
