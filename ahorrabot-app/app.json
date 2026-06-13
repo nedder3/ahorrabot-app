@@ -45,7 +45,7 @@
         }
       ],
       "expo-sqlite",
-      "@dev-amirzubair/react-native-voice"
+      "./plugins/withVoice"
     ],
     "experiments": {
       "typedRoutes": true,
