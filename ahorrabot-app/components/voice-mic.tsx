@@ -1,256 +1,287 @@
 // components/voice-mic.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
   Platform,
-  ActivityIndicator,
+  PermissionsAndroid,
+  Alert,
+  StyleSheet,
+  NativeModules,
 } from 'react-native';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
+import { useAppTheme } from '../context/theme-context';
+
+// Dynamically load Voice module on native, fallback to null on web/Expo Go
+let Voice: any = null;
+if (Platform.OS !== 'web') {
+  try {
+    if (NativeModules && NativeModules.Voice) {
+      Voice = require('@react-native-voice/voice').default;
+    } else {
+      console.warn('Voice recognition native module is not available (e.g. Expo Go/emulator)');
+    }
+  } catch (e) {
+    console.warn('Voice recognition module is not available in this build environment (e.g. Expo Go):', e);
+  }
+}
 
 // Styled Components
 const MicButton = styled.TouchableOpacity<{ isListening: boolean }>`
-  background-color: ${props => props.isListening ? '#EF4444' : '#0D9488'};
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
+  background-color: ${props => props.isListening ? props.theme.colors.primaryLight : 'transparent'};
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
   justify-content: center;
   align-items: center;
-  shadow-color: #000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.2;
-  shadow-radius: 4px;
-  elevation: 3;
-`;
-
-const PulseCircle = styled.View`
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  border-width: 2px;
-  border-color: #EF4444;
-  opacity: 0.6;
-`;
-
-const ModalOverlay = styled.View`
-  flex: 1;
-  background-color: rgba(15, 23, 42, 0.75);
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-`;
-
-const ModalContent = styled.View`
-  background-color: ${props => props.theme.colors.card};
-  width: 90%;
-  border-radius: 24px;
-  padding: 24px;
-  align-items: center;
-  border-width: 1px;
-  border-color: ${props => props.theme.colors.border};
-`;
-
-const ListeningTitle = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-  color: ${props => props.theme.colors.text};
-  margin-top: 16px;
-  margin-bottom: 8px;
-`;
-
-const ListeningSubtitle = styled.Text`
-  font-size: 14px;
-  color: ${props => props.theme.colors.textSecondary};
-  text-align: center;
-  margin-bottom: 24px;
-  padding-horizontal: 10px;
-`;
-
-const ShortcutButton = styled.TouchableOpacity`
-  background-color: ${props => props.theme.colors.background};
-  border-width: 1px;
-  border-color: ${props => props.theme.colors.border};
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-vertical: 6px;
-  width: 100%;
-  align-items: center;
-`;
-
-const ShortcutText = styled.Text`
-  color: ${props => props.theme.colors.primary};
-  font-weight: 600;
-  font-size: 14px;
+  margin-left: 4px;
 `;
 
 interface VoiceMicProps {
   onSpeechResult: (text: string) => void;
+  onListeningChange?: (isListening: boolean) => void;
+  onPressMic?: () => void;
 }
 
-export const VoiceMic: React.FC<VoiceMicProps> = ({ onSpeechResult }) => {
+export const VoiceMic: React.FC<VoiceMicProps> = ({ onSpeechResult, onListeningChange, onPressMic }) => {
+  const { theme } = useAppTheme();
   const [isListening, setIsListening] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [webTranscript, setWebTranscript] = useState('');
   const [recognition, setRecognition] = useState<any>(null);
 
+  const onListeningChangeRef = useRef(onListeningChange);
+  const onSpeechResultRef = useRef(onSpeechResult);
+
+  // Keep refs up to date
+  useEffect(() => {
+    onListeningChangeRef.current = onListeningChange;
+  }, [onListeningChange]);
+
+  useEffect(() => {
+    onSpeechResultRef.current = onSpeechResult;
+  }, [onSpeechResult]);
+
+  // Web SpeechRecognition Initialization
   useEffect(() => {
     if (Platform.OS === 'web') {
       const SpeechRecognition =
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       if (SpeechRecognition) {
         const rec = new SpeechRecognition();
-        rec.continuous = false;
+        rec.continuous = true;
         rec.lang = 'es-AR';
-        rec.interimResults = false;
+        rec.interimResults = true;
 
         rec.onstart = () => {
           setIsListening(true);
-          setWebTranscript('Escuchando...');
+          onListeningChangeRef.current?.(true);
         };
 
         rec.onresult = (event: any) => {
-          const transcript = event.results[0][0].transcript;
-          setWebTranscript(transcript);
-          onSpeechResult(transcript);
+          let fullTranscript = '';
+          for (let i = 0; i < event.results.length; ++i) {
+            fullTranscript += event.results[i][0].transcript;
+          }
+          onSpeechResultRef.current(fullTranscript);
         };
 
         rec.onerror = (event: any) => {
-          console.error('Speech recognition error:', event.error);
-          setWebTranscript('Error al escuchar. Intentá de nuevo.');
+          console.error('Speech recognition error web:', event.error);
+          setIsListening(false);
+          onListeningChangeRef.current?.(false);
+          if (event.error === 'not-allowed') {
+            Alert.alert(
+              'Permiso Denegado',
+              'Habilitá el micrófono en la configuración de tu navegador para usar el dictado por voz.'
+            );
+          }
         };
 
         rec.onend = () => {
           setIsListening(false);
-          setTimeout(() => setModalVisible(false), 1500);
+          onListeningChangeRef.current?.(false);
         };
 
         setRecognition(rec);
+
+        return () => {
+          try {
+            rec.abort();
+          } catch {}
+        };
       }
     }
-  }, [onSpeechResult]);
+  }, []);
 
-  const handlePress = () => {
-    setModalVisible(true);
-    if (Platform.OS === 'web' && recognition) {
-      try {
-        recognition.start();
-      } catch (e) {
-        console.warn('Recognition already started:', e);
+  // Native Voice Listeners Configuration
+  useEffect(() => {
+    if (Platform.OS !== 'web' && Voice) {
+      Voice.onSpeechStart = () => {
+        setIsListening(true);
+        onListeningChangeRef.current?.(true);
+      };
+
+      Voice.onSpeechEnd = () => {
+        setIsListening(false);
+        onListeningChangeRef.current?.(false);
+      };
+
+      Voice.onSpeechResults = (e: any) => {
+        if (e.value && e.value.length > 0) {
+          onSpeechResultRef.current(e.value[0]);
+        }
+      };
+
+      Voice.onSpeechError = (e: any) => {
+        console.error('Speech recognition error native:', e);
+        setIsListening(false);
+        onListeningChangeRef.current?.(false);
+      };
+
+      return () => {
+        if (Voice) {
+          try {
+            Voice.destroy()
+              .then(() => {
+                try {
+                  Voice.removeAllListeners();
+                } catch {}
+              })
+              .catch(() => {});
+          } catch {}
+        }
+      };
+    }
+  }, []);
+
+  const handlePress = async () => {
+    // Soft haptic feedback
+    try {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    } catch {}
+
+    if (isListening) {
+      // Toggle off
+      if (Platform.OS === 'web' && recognition) {
+        try {
+          recognition.stop();
+        } catch {}
+      } else if (Platform.OS !== 'web' && Voice) {
+        try {
+          await Voice.stop();
+        } catch {}
+      } else {
+        setIsListening(false);
+        onListeningChangeRef.current?.(false);
+      }
+      return;
+    }
+
+    // Trigger callback to focus input & raise keyboard (Gboard)
+    if (onPressMic) {
+      onPressMic();
+    }
+
+    // Toggle on
+    if (Platform.OS === 'web') {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop()); // release mic hardware check
+
+          if (recognition) {
+            try {
+              recognition.start();
+            } catch (err) {
+              console.warn('Recognition start error:', err);
+            }
+          }
+        } catch (err: any) {
+          console.error('Microphone permission error web:', err);
+          if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+            Alert.alert(
+              'Acceso Denegado',
+              'Por favor, habilitá el micrófono en la configuración de tu navegador para usar el dictado por voz.'
+            );
+          } else {
+            Alert.alert('Error', 'No se pudo acceder al micrófono de tu dispositivo.');
+          }
+        }
+      } else {
+        if (recognition) {
+          try {
+            recognition.start();
+          } catch {}
+        }
       }
     } else {
-      setIsListening(true);
-      // Simulating listening on Native - user can also click a quick voice shortcut
-      setWebTranscript('Escuchando tu voz... Decí algo o seleccioná una frase rápida abajo:');
+      // Native Speech-to-Text Flow
+      if (Voice) {
+        try {
+          if (Platform.OS === 'android') {
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+              {
+                title: 'Permiso de Micrófono',
+                message: 'Ahorrabot necesita acceso al micrófono para dictar tus mensajes.',
+                buttonNeutral: 'Preguntar luego',
+                buttonNegative: 'Cancelar',
+                buttonPositive: 'Permitir',
+              }
+            );
+            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+              Alert.alert('Acceso Denegado', 'Permiso de micrófono denegado en el dispositivo.');
+              return;
+            }
+          }
+          // Start actual native voice capture
+          await Voice.start('es-AR');
+        } catch (err) {
+          console.warn('Voice start native error:', err);
+          // Fallback simulation in case of emulator constraints
+          setIsListening(true);
+          onListeningChangeRef.current?.(true);
+          setTimeout(() => {
+            setIsListening(false);
+            onListeningChangeRef.current?.(false);
+            Alert.alert(
+              'Dictado de Voz',
+              'El micrófono nativo requiere compilar la app. Probá dictando tocando el icono de micrófono en tu teclado virtual. 👍'
+            );
+          }, 3500);
+        }
+      } else {
+        // Safe fallback for Expo Go / Emulator environment
+        setIsListening(true);
+        onListeningChangeRef.current?.(true);
+        setTimeout(() => {
+          setIsListening(false);
+          onListeningChangeRef.current?.(false);
+          Alert.alert(
+            'Dictado de Voz 🎙️📱',
+            'El micrófono de AhorraBot está listo. Por favor, utilizá el botón de micrófono integrado en el teclado de tu dispositivo para dictar texto directamente. ✨'
+          );
+        }, 4000);
+      }
     }
   };
-
-  const handleCancel = () => {
-    setModalVisible(false);
-    setIsListening(false);
-    if (Platform.OS === 'web' && recognition) {
-      try {
-        recognition.stop();
-      } catch (e) {}
-    }
-  };
-
-  const handleShortcutPress = (text: string) => {
-    onSpeechResult(text);
-    setModalVisible(false);
-    setIsListening(false);
-  };
-
-  const nativeVoiceShortcuts = [
-    '¿Dónde compro fideos baratos hoy?',
-    '¿Qué supermercado tiene descuento con Cuenta DNI?',
-    '¿Cuánto cuesta la yerba en Carrefour y en Coto?',
-    '¿Dónde está el arroz al mejor precio?',
-    '¿Qué promociones hay en el super hoy?'
-  ];
 
   return (
-    <View>
+    <View style={styles.container}>
       <MicButton onPress={handlePress} isListening={isListening}>
-        <Ionicons name="mic" size={24} color="#FFFFFF" />
+        <Ionicons
+          name={isListening ? 'mic' : 'mic-outline'}
+          size={22}
+          color={isListening ? theme.colors.primary : theme.colors.textSecondary}
+        />
       </MicButton>
-
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={handleCancel}
-      >
-        <ModalOverlay>
-          <ModalContent>
-            {isListening && <PulseCircle />}
-            <View style={styles.micCircle}>
-              <Ionicons
-                name="mic"
-                size={40}
-                color={isListening ? '#EF4444' : '#64748B'}
-              />
-            </View>
-
-            <ListeningTitle>
-              {isListening ? 'Escuchando...' : 'Procesando Voz...'}
-            </ListeningTitle>
-
-            <ListeningSubtitle>
-              {Platform.OS === 'web'
-                ? webTranscript || 'Hablá ahora...'
-                : 'Podes usar tu dictado de teclado nativo o elegir uno de estos atajos de voz frecuentes:'}
-            </ListeningSubtitle>
-
-            {Platform.OS !== 'web' && (
-              <View style={{ width: '100%', marginBottom: 20 }}>
-                {nativeVoiceShortcuts.map((shortcut, index) => (
-                  <ShortcutButton
-                    key={index}
-                    onPress={() => handleShortcutPress(shortcut)}
-                  >
-                    <ShortcutText>🗣️ &quot;{shortcut}&quot;</ShortcutText>
-                  </ShortcutButton>
-                ))}
-              </View>
-            )}
-
-            <TouchableOpacity style={styles.closeButton} onPress={handleCancel}>
-              <Text style={styles.closeButtonText}>Cancelar</Text>
-            </TouchableOpacity>
-          </ModalContent>
-        </ModalOverlay>
-      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  micCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#F1F5F9',
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
-  },
-  closeButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    backgroundColor: '#EF4444',
-    marginTop: 8,
-    width: '100%',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
 });
