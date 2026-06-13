@@ -31,3 +31,11 @@ yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Documentos académicos y de contexto
+/Apunte teorico.docx
+/Clase 2 .pptx.pdf
+/Clase 4 movil.pptx.pdf
+/Practica 3 guardado de datos internos.docx.pdf
+/Proyecto Evaluativo Integrador 191.pdf
+
