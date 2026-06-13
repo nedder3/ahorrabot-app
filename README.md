@@ -11,21 +11,21 @@ La aplicación se estructura en capas desacopladas que integran servicios de int
 
 ```mermaid
 graph TD
-  A[Usuario / Interfaz UI] -->|Mensajes de Texto / Dictado de Voz| B(Chatbot Asistente - App)
-  B -->|Consultas OpenRouter API| C{Llama 3 8B Instruct}
-  C -->|Retorna Comandos: [ADD_TO_CART], etc.| B
-  B -->|Modifica Estado| D[Cart Context - Carrito]
+  A["Usuario / Interfaz UI"] -->|"Mensajes de Texto / Dictado de Voz"| B("Chatbot Asistente - App")
+  B -->|"Consultas OpenRouter API"| C{"Llama 3 8B Instruct"}
+  C -->|"Retorna Comandos: ADD_TO_CART, etc."| B
+  B -->|"Modifica Estado"| D["Cart Context - Carrito"]
   
-  D -->|Calcula Totals con Reintegros| E[Comparador de Precios / Mapas]
-  E -->|Dibuja WebView Leaflet| F[Sucursales Cercanas Bahía Blanca]
+  D -->|"Calcula Totales con Reintegros"| E["Comparador de Precios / Mapas"]
+  E -->|"Dibuja WebView Leaflet"| F["Sucursales Cercanas Bahía Blanca"]
   
-  G[Scraper Python - Local/CLI] -->|Semilla: scraped_prices.json| H[Servicio de Datos]
-  I[API Supermercados Online] -->|Sync en background| H
-  H -->|Lee & Sincroniza| J[Capa SQLite db.ts / db.web.ts]
+  G["Scraper Python - Local/CLI"] -->|"Semilla: scraped_prices.json"| H["Servicio de Datos"]
+  I["API Supermercados Online"] -->|"Sync en background"| H
+  H -->|"Lee & Sincroniza"| J["Capa SQLite db.ts / db.web.ts"]
   
-  D -->|Confirmar Compra| J
-  K[Historial de Pedidos] -->|Lee Base de Datos| J
-  J -->|Actualiza Métricas| A
+  D -->|"Confirmar Compra"| J
+  K["Historial de Pedidos"] -->|"Lee Base de Datos"| J
+  J -->|"Actualiza Métricas"| A
 ```
 
 ---
