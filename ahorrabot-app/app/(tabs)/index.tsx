@@ -6,7 +6,8 @@ import { useAuth } from '../../context/auth-context';
 import { useAppTheme } from '../../context/theme-context';
 import { PROMOTIONS } from '../../services/supermarket-data';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { getOrders } from '../../database/db';
 
 // Styled Components
 const Container = styled.SafeAreaView`
@@ -196,6 +197,27 @@ export default function HomeScreen() {
   const { user, cards, toggleCard } = useAuth();
   const { theme } = useAppTheme();
   const router = useRouter();
+  const [savingsTotal, setSavingsTotal] = React.useState(0);
+
+  const fetchSavings = async () => {
+    if (!user) {
+      setSavingsTotal(0);
+      return;
+    }
+    try {
+      const data = await getOrders(user.id);
+      const total = data.reduce((sum, order) => sum + (order.savings || 0), 0);
+      setSavingsTotal(total);
+    } catch (e) {
+      console.error('Error fetching savings:', e);
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchSavings();
+    }, [user])
+  );
 
   // Bahia Blanca & Coop Obrera payment cards
   const availableCards = [
@@ -230,7 +252,7 @@ export default function HomeScreen() {
         <QuickStatsCard>
           <StatInfo>
             <StatLabel>Mi Ahorro Estimado</StatLabel>
-            <StatValue>$14.280</StatValue>
+            <StatValue>${Math.round(savingsTotal).toLocaleString('es-AR')}</StatValue>
           </StatInfo>
           <StatAction onPress={() => router.push('/chat' as any)}>
             <StatActionText>Preguntar al Bot</StatActionText>

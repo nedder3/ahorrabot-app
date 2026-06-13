@@ -8,6 +8,8 @@ import {
   ActivityIndicator,
   Alert,
   StyleSheet,
+  useWindowDimensions,
+  Linking,
 } from 'react-native';
 import styled from 'styled-components/native';
 import { useAuth } from '../../context/auth-context';
@@ -16,8 +18,9 @@ import { useCart, CartItem, StoreCartTotal } from '../../context/cart-context';
 import { MapViewComponent } from '../../components/map-view';
 import { getUserLocation, getNearbyStores, GeolocatedStore } from '../../services/google-maps';
 import { PRODUCTS } from '../../services/supermarket-data';
-import { saveFavoriteDeal } from '../../database/db';
+import { saveOrder, saveFavoriteDeal } from '../../database/db';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // Styled Components
 const Container = styled.SafeAreaView`
@@ -27,12 +30,21 @@ const Container = styled.SafeAreaView`
 
 const Header = styled.View`
   padding: 16px 20px;
-  background-color: ${props => props.theme.colors.primary};
+  background-color: rgba(220, 38, 38, 0.85);
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.border};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+const MiniLogo = styled.Image`
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.3);
+  margin-right: 8px;
 `;
 
 const HeaderTitle = styled.Text`
@@ -134,7 +146,7 @@ const ResultsContainer = styled.View`
 `;
 
 const ResultCard = styled.View<{ isBest: boolean }>`
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.glassBg};
   border-width: 2.5px;
   border-color: ${props => props.isBest ? props.theme.colors.accent : props.theme.colors.border};
   border-radius: 16px;
@@ -277,6 +289,137 @@ const EmptyCartText = styled.Text`
   margin-bottom: 20px;
 `;
 
+const MainWrapper = styled.View<{ isWide: boolean }>`
+  flex: 1;
+  flex-direction: ${props => props.isWide ? 'row' : 'column'};
+  background-color: ${props => props.theme.colors.background};
+`;
+
+const ContentArea = styled.View`
+  flex: 1;
+`;
+
+const AsideRight = styled.View`
+  width: 360px;
+  border-left-width: 1px;
+  border-left-color: ${props => props.theme.colors.border};
+  background-color: ${props => props.theme.colors.glassBg};
+  padding: 16px;
+`;
+
+const SidebarTitle = styled.Text`
+  font-size: 14px;
+  font-weight: 900;
+  color: ${props => props.theme.colors.text};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  margin-top: 10px;
+`;
+
+const CartListWrapper = styled.View`
+  flex: 1;
+  background-color: ${props => props.theme.colors.background};
+  border-radius: 16px;
+  border-width: 1.5px;
+  border-color: ${props => props.theme.colors.border};
+  padding: 12px;
+`;
+
+const CartListScroll = styled.ScrollView`
+  max-height: 220px;
+  margin-bottom: 12px;
+`;
+
+const BestStoreCard = styled.View`
+  background-color: ${props => props.theme.colors.primaryLight};
+  border-radius: 12px;
+  padding: 10px 12px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.primary};
+  margin-top: 10px;
+`;
+
+const BestStoreText = styled.Text`
+  font-size: 11px;
+  font-weight: 700;
+  color: ${props => props.theme.colors.textSecondary};
+  text-transform: uppercase;
+`;
+
+const BestStoreName = styled.Text`
+  font-size: 14px;
+  font-weight: 900;
+  color: ${props => props.theme.colors.primary};
+  margin-top: 2px;
+`;
+
+const BestStorePrice = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.text};
+  margin-top: 4px;
+`;
+
+const CheckoutButton = styled.TouchableOpacity`
+  background-color: ${props => props.theme.colors.accent};
+  border-radius: 12px;
+  padding: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  border-width: 1.5px;
+  border-color: #0F172A;
+`;
+
+const CheckoutButtonText = styled.Text`
+  color: #0F172A;
+  font-weight: 900;
+  font-size: 13px;
+  margin-left: 6px;
+  text-transform: uppercase;
+`;
+
+const FallbackNote = styled.View`
+  background-color: #FFFBEB;
+  border-width: 1px;
+  border-color: #FDE68A;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 8px;
+`;
+
+const FallbackText = styled.Text`
+  font-size: 11px;
+  color: #B45309;
+  line-height: 16px;
+  font-weight: 500;
+`;
+
+const DeliveryContainer = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+`;
+
+const DeliveryChip = styled.TouchableOpacity<{ bg: string }>`
+  background-color: ${props => props.bg};
+  padding: 6px 10px;
+  border-radius: 16px;
+  flex-direction: row;
+  align-items: center;
+  border-width: 1px;
+  border-color: rgba(0,0,0,0.05);
+`;
+
+const DeliveryChipText = styled.Text`
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFFFFF;
+`;
+
 const QuickAddList = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
@@ -301,7 +444,10 @@ const QuickAddText = styled.Text`
 export default function MapScreen() {
   const { user, cards } = useAuth();
   const { theme } = useAppTheme();
-  const { cart, addToCart, removeFromCart, clearCart, calculateCartTotals } = useCart();
+  const { cart, addToCart, removeFromCart, clearCart, calculateCartTotals, pricesVersion } = useCart();
+  const router = useRouter();
+  const { width } = useWindowDimensions();
+  const isWide = width > 768;
   
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [isSearchingOffers, setIsSearchingOffers] = useState(false);
@@ -325,12 +471,12 @@ export default function MapScreen() {
     return rawDay.charAt(0).toUpperCase() + rawDay.slice(1);
   };
 
-  // Recalculate options when cart or cards change
+  // Recalculate options when cart, cards or prices update in background
   useEffect(() => {
     const currentDay = getCapitalizedDay();
     const results = calculateCartTotals(currentDay, cards);
     setCalculations(results);
-  }, [cart, cards]);
+  }, [cart, cards, pricesVersion]);
 
   const handleQuickAdd = (productId: string) => {
     addToCart(productId);
@@ -342,161 +488,318 @@ export default function MapScreen() {
     }, 1800);
   };
 
-  const handleSaveFavorite = async (calc: StoreCartTotal) => {
+  const handleGenerateOrder = async (calc: StoreCartTotal) => {
     if (!user) {
-      Alert.alert('Error', 'Debés iniciar sesión para guardar pedidos.');
+      Alert.alert('Error', 'Debés iniciar sesión para generar pedidos.');
       return;
     }
 
-    try {
-      const cartSummaryText = cart.map(item => `${item.quantity}x ${item.name.split(' ')[0]}`).join(', ');
-      
-      await saveFavoriteDeal(
-        user.id,
-        `Pedido: [${cartSummaryText}]`,
-        calc.storeName,
-        calc.totalPrice, // Save total price
-        'Carrito Completo',
-        calc.totalPrice
-      );
-      
-      Alert.alert('¡Pedido Guardado!', `Guardaste tu lista completa de compras en ${calc.storeName} por un total de $${calc.totalPrice}.`);
-    } catch (e) {
-      console.error(e);
-      Alert.alert('Error', 'No se pudo guardar el pedido.');
-    }
+    Alert.alert(
+      'Generar Pedido',
+      `¿Querés generar la lista de compras para ${calc.storeName} por un total de $${calc.totalPrice}?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Generar',
+          onPress: async () => {
+            try {
+              const orderItems = cart.map(item => ({
+                productId: item.productId,
+                name: item.name,
+                quantity: item.quantity
+              }));
+
+              const worstOption = calculations[calculations.length - 1];
+              const savings = worstOption ? Math.max(0, worstOption.totalPrice - calc.totalPrice) : 0;
+
+              await saveOrder(
+                user.id,
+                JSON.stringify(orderItems),
+                calc.storeName,
+                calc.totalPrice,
+                savings
+              );
+
+              // Clear the cart to end the session
+              clearCart();
+
+              Alert.alert(
+                '¡Pedido Generado! 🎉',
+                `Tu lista de compras para ${calc.storeName} por $${calc.totalPrice} se guardó en "Mis Pedidos".`,
+                [
+                  {
+                    text: 'Ver Mis Pedidos 📋',
+                    onPress: () => router.push('/orders' as any),
+                  },
+                  { text: 'Aceptar', style: 'default' }
+                ]
+              );
+            } catch (e) {
+              console.error(e);
+              Alert.alert('Error', 'Hubo un problema al guardar tu pedido.');
+            }
+          }
+        }
+      ]
+    );
   };
 
-  return (
-    <Container>
-      <Header>
-        <HeaderTitle>Comparador de Carrito 🛒</HeaderTitle>
-        {loadingLocation ? (
-          <ActivityIndicator size="small" color="#FFFFFF" />
-        ) : (
-          <LocationText>📍 {userCoords?.address.split(',')[0]}</LocationText>
-        )}
-      </Header>
+  const bestOption = calculations[0];
 
-      {/* Cart Summary Header */}
-      {cart.length > 0 && (
-        <CartSection>
-          <CartTitleRow>
-            <SectionLabel>Mi Carrito de Compras</SectionLabel>
-            <ClearButton onPress={clearCart}>
-              <Ionicons name="trash-outline" size={14} color={theme.colors.primary} />
-              <ClearButtonText>Vaciar</ClearButtonText>
-            </ClearButton>
-          </CartTitleRow>
+  const renderAsideRight = () => {
+    return (
+      <AsideRight>
+        <SidebarTitle>🛒 Carrito Activo (Lista) 📋</SidebarTitle>
+        <CartListWrapper>
+          {cart.length === 0 ? (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Ionicons name="cart-outline" size={40} color={theme.colors.textSecondary} />
+              <EmptyCartText style={{ fontSize: 13, marginVertical: 12 }}>
+                El carrito está vacío. 🛒
+              </EmptyCartText>
+              <FallbackNote>
+                <FallbackText>
+                  💡 Buscá productos rápidos abajo o pedí directo a delivery:
+                </FallbackText>
+                <DeliveryContainer>
+                  <DeliveryChip bg="#E2004F" onPress={() => Linking.openURL('https://www.pedidosya.com.ar/')}>
+                    <DeliveryChipText>🏍️ PedidosYa</DeliveryChipText>
+                  </DeliveryChip>
+                  <DeliveryChip bg="#FF5E3A" onPress={() => Linking.openURL('https://www.rappi.com.ar/')}>
+                    <DeliveryChipText>🛵 Rappi</DeliveryChipText>
+                  </DeliveryChip>
+                  <DeliveryChip bg="#005691" onPress={() => Linking.openURL('https://www.lacoopeencasa.coop/')}>
+                    <DeliveryChipText>🛒 La Coope</DeliveryChipText>
+                  </DeliveryChip>
+                </DeliveryContainer>
+              </FallbackNote>
+            </View>
+          ) : (
+            <View style={{ flex: 1 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 12, color: theme.colors.textSecondary }}>ITEMS ({cart.reduce((sum, item) => sum + item.quantity, 0)})</Text>
+                <ClearButton onPress={clearCart}>
+                  <Ionicons name="trash-outline" size={12} color={theme.colors.primary} />
+                  <ClearButtonText style={{ fontSize: 12 }}>Vaciar</ClearButtonText>
+                </ClearButton>
+              </View>
+              <CartListScroll showsVerticalScrollIndicator={false}>
+                {cart.map(item => (
+                  <CartRow key={item.productId} style={{ paddingVertical: 6 }}>
+                    <ItemName style={{ fontSize: 13 }}>{item.name}</ItemName>
+                    <QtyControls>
+                      <QtyButton style={{ width: 24, height: 24, borderRadius: 12 }} onPress={() => removeFromCart(item.productId)}>
+                        <Ionicons name="remove" size={12} color={theme.colors.primary} />
+                      </QtyButton>
+                      <QtyText style={{ fontSize: 13, marginHorizontal: 8 }}>{item.quantity}</QtyText>
+                      <QtyButton style={{ width: 24, height: 24, borderRadius: 12 }} onPress={() => addToCart(item.productId)}>
+                        <Ionicons name="add" size={12} color={theme.colors.primary} />
+                      </QtyButton>
+                    </QtyControls>
+                  </CartRow>
+                ))}
+              </CartListScroll>
+              {bestOption && (
+                <>
+                  <BestStoreCard>
+                    <BestStoreText>🏆 Compra más barata:</BestStoreText>
+                    <BestStoreName>✨ {bestOption.storeName}</BestStoreName>
+                    <BestStorePrice>💰 Total: ${bestOption.totalPrice}</BestStorePrice>
+                  </BestStoreCard>
+                  <CheckoutButton onPress={() => handleGenerateOrder(bestOption)}>
+                    <Ionicons name="receipt-outline" size={16} color="#0F172A" />
+                    <CheckoutButtonText>Generar Pedido</CheckoutButtonText>
+                  </CheckoutButton>
+                </>
+              )}
+            </View>
+          )}
+        </CartListWrapper>
 
-          {cart.map(item => (
-            <CartRow key={item.productId}>
-              <ItemName>{item.name}</ItemName>
-              <QtyControls>
-                <QtyButton onPress={() => removeFromCart(item.productId)}>
-                  <Ionicons name="remove" size={16} color={theme.colors.primary} />
-                </QtyButton>
-                <QtyText>{item.quantity}</QtyText>
-                <QtyButton onPress={() => addToCart(item.productId)}>
-                  <Ionicons name="add" size={16} color={theme.colors.primary} />
-                </QtyButton>
-              </QtyControls>
-            </CartRow>
-          ))}
-        </CartSection>
-      )}
-
-      {isSearchingOffers ? (
-        <ScrollView>
-          <SearchLoaderContainer>
-            <ActivityIndicator size="large" color={theme.colors.primary} />
-            <SearchLoaderText>Buscando ofertas del carrito...</SearchLoaderText>
-            <SearchLoaderSub>
-              Sumando productos y aplicando reintegros Cuenta DNI y Coopeplus...{'\n'}
-              Comparando Cooperativa Obrera, Carrefour, Día y Vea.
-            </SearchLoaderSub>
-          </SearchLoaderContainer>
-        </ScrollView>
-      ) : cart.length === 0 ? (
-        <ScrollView>
-          <EmptyCartContainer>
-            <Ionicons name="cart-outline" size={60} color={theme.colors.textSecondary} />
-            <EmptyCartTitle>Tu carrito de compras está vacío</EmptyCartTitle>
-            <EmptyCartText>
-              Escribile o dictale tu lista de víveres a AhorraBot en la pestaña del chat (ej. &quot;agregame fideos y yerba&quot;) o agregá productos rápidos acá abajo:
-            </EmptyCartText>
+        {/* Quick Add products at bottom of aside when cart is empty */}
+        {cart.length === 0 && (
+          <View style={{ marginTop: 20 }}>
+            <SidebarTitle>➕ Agregar Rápidos</SidebarTitle>
             <QuickAddList>
-              {PRODUCTS.map(p => (
+              {PRODUCTS.slice(0, 6).map(p => (
                 <QuickAddButton key={p.id} onPress={() => handleQuickAdd(p.id)}>
                   <QuickAddText>➕ {p.name.split(' ')[0]}</QuickAddText>
                 </QuickAddButton>
               ))}
             </QuickAddList>
-          </EmptyCartContainer>
-        </ScrollView>
-      ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/* Leaflet WebView Map */}
-          <MapContainer>
-            {loadingLocation ? (
-              <View style={styles.loadingMap}>
-                <ActivityIndicator size="large" color={theme.colors.primary} />
-                <Text style={{ marginTop: 8, color: theme.colors.textSecondary }}>Cargando mapa...</Text>
-              </View>
-            ) : (
-              <MapViewComponent
-                userLat={userCoords!.latitude}
-                userLng={userCoords!.longitude}
-                stores={nearbyStores}
-              />
-            )}
-          </MapContainer>
+          </View>
+        )}
+      </AsideRight>
+    );
+  };
 
-          {/* Calculations / Supermarket comparisons */}
-          <ResultsContainer>
-            <SectionLabel style={{ fontSize: 15, marginBottom: 12 }}>
-              💰 Costo Total del Carrito Completo:
-            </SectionLabel>
+  const renderContentArea = () => {
+    return (
+      <ContentArea>
+        <Header>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <MiniLogo source={require('../../assets/images/ahorrabot_logo.png')} />
+            <HeaderTitle>Comparador 🛒</HeaderTitle>
+          </View>
+          {loadingLocation ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <LocationText>📍 {userCoords?.address.split(',')[0]}</LocationText>
+          )}
+        </Header>
 
-            {calculations.map((calc, index) => {
-              const isBestOption = index === 0;
-              
-              return (
-                <ResultCard key={calc.storeId} isBest={isBestOption}>
-                  {isBestOption && (
-                    <BestBadge>
-                      <BestBadgeText>¡MÁS CONVENIENTE!</BestBadgeText>
-                    </BestBadge>
-                  )}
+        {/* Mobile-only Cart Summary Header */}
+        {!isWide && cart.length > 0 && (
+          <CartSection>
+            <CartTitleRow>
+              <SectionLabel>Mi Carrito de Compras</SectionLabel>
+              <ClearButton onPress={clearCart}>
+                <Ionicons name="trash-outline" size={14} color={theme.colors.primary} />
+                <ClearButtonText>Vaciar</ClearButtonText>
+              </ClearButton>
+            </CartTitleRow>
 
-                  <ResultHeader>
-                    <StoreName>{calc.storeName}</StoreName>
-                    <PriceContainer>
-                      <FinalPrice>${calc.totalPrice}</FinalPrice>
-                    </PriceContainer>
-                  </ResultHeader>
+            {cart.map(item => (
+              <CartRow key={item.productId}>
+                <ItemName>{item.name}</ItemName>
+                <QtyControls>
+                  <QtyButton onPress={() => removeFromCart(item.productId)}>
+                    <Ionicons name="remove" size={16} color={theme.colors.primary} />
+                  </QtyButton>
+                  <QtyText>{item.quantity}</QtyText>
+                  <QtyButton onPress={() => addToCart(item.productId)}>
+                    <Ionicons name="add" size={16} color={theme.colors.primary} />
+                  </QtyButton>
+                </QtyControls>
+              </CartRow>
+            ))}
+          </CartSection>
+        )}
 
-                  <Text style={{ color: theme.colors.textSecondary, fontSize: 12, fontWeight: '500' }}>
-                    📍 A {calc.distance} km • {calc.breakdown}
-                  </Text>
+        {isSearchingOffers ? (
+          <ScrollView>
+            <SearchLoaderContainer>
+              <ActivityIndicator size="large" color={theme.colors.primary} />
+              <SearchLoaderText>Buscando ofertas del carrito...</SearchLoaderText>
+              <SearchLoaderSub>
+                Sumando productos y aplicando reintegros Cuenta DNI y Coopeplus...{'\n'}
+                Comparando Cooperativa Obrera, Carrefour, Día y Vea.
+              </SearchLoaderSub>
+            </SearchLoaderContainer>
+          </ScrollView>
+        ) : cart.length === 0 && !isWide ? (
+          // Mobile Empty Cart
+          <ScrollView>
+            <EmptyCartContainer>
+              <Ionicons name="cart-outline" size={60} color={theme.colors.textSecondary} />
+              <EmptyCartTitle>Tu carrito de compras está vacío</EmptyCartTitle>
+              <EmptyCartText>
+                Escribile o dictale tu lista de víveres a AhorraBot en la pestaña del chat (ej. &quot;agregame fideos y yerba&quot;) o agregá productos rápidos acá abajo:
+              </EmptyCartText>
+              <QuickAddList>
+                {PRODUCTS.map(p => (
+                  <QuickAddButton key={p.id} onPress={() => handleQuickAdd(p.id)}>
+                    <QuickAddText>➕ {p.name.split(' ')[0]}</QuickAddText>
+                  </QuickAddButton>
+                ))}
+              </QuickAddList>
+            </EmptyCartContainer>
+          </ScrollView>
+        ) : cart.length === 0 && isWide ? (
+          // Web Empty Cart (Map still loaded on left!)
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <MapContainer style={{ height: 400 }}>
+              {loadingLocation ? (
+                <View style={styles.loadingMap}>
+                  <ActivityIndicator size="large" color={theme.colors.primary} />
+                  <Text style={{ marginTop: 8, color: theme.colors.textSecondary }}>Cargando mapa...</Text>
+                </View>
+              ) : (
+                <MapViewComponent
+                  userLat={userCoords!.latitude}
+                  userLng={userCoords!.longitude}
+                  stores={nearbyStores}
+                />
+              )}
+            </MapContainer>
+            <View style={{ padding: 24, alignItems: 'center' }}>
+              <Ionicons name="cart-outline" size={48} color={theme.colors.textSecondary} />
+              <Text style={{ color: theme.colors.textSecondary, marginTop: 12, fontWeight: 'bold', textAlign: 'center' }}>
+                Cargá productos en tu carrito en el panel derecho o usá el chat para iniciar una comparación. ⚡️🛍️
+              </Text>
+            </View>
+          </ScrollView>
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* Leaflet WebView Map */}
+            <MapContainer style={isWide ? { height: 350 } : undefined}>
+              {loadingLocation ? (
+                <View style={styles.loadingMap}>
+                  <ActivityIndicator size="large" color={theme.colors.primary} />
+                  <Text style={{ marginTop: 8, color: theme.colors.textSecondary }}>Cargando mapa...</Text>
+                </View>
+              ) : (
+                <MapViewComponent
+                  userLat={userCoords!.latitude}
+                  userLng={userCoords!.longitude}
+                  stores={nearbyStores}
+                />
+              )}
+            </MapContainer>
 
-                  <PromoDescription>
-                    {isBestOption 
-                      ? `✨ Comprando tu carrito en ${calc.storeName} tenés la opción más económica hoy.` 
-                      : `Comprando en ${calc.storeName} gastás $${calc.totalPrice - calculations[0].totalPrice} más que la opción recomendada.`}
-                  </PromoDescription>
+            {/* Calculations / Supermarket comparisons */}
+            <ResultsContainer>
+              <SectionLabel style={{ fontSize: 15, marginBottom: 12 }}>
+                💰 Costo Total del Carrito Completo:
+              </SectionLabel>
 
-                  <SaveDealButton onPress={() => handleSaveFavorite(calc)}>
-                    <Ionicons name="bookmark" size={16} color={theme.colors.primary} />
-                    <SaveDealText>Guardar Pedido Completo</SaveDealText>
-                  </SaveDealButton>
-                </ResultCard>
-              );
-            })}
-          </ResultsContainer>
-        </ScrollView>
-      )}
-    </Container>
+              {calculations.map((calc, index) => {
+                const isBestOption = index === 0;
+                
+                return (
+                  <ResultCard key={calc.storeId} isBest={isBestOption}>
+                    {isBestOption && (
+                      <BestBadge>
+                        <BestBadgeText>¡MÁS CONVENIENTE!</BestBadgeText>
+                      </BestBadge>
+                    )}
+
+                    <ResultHeader>
+                      <StoreName>{calc.storeName}</StoreName>
+                      <PriceContainer>
+                        <FinalPrice>${calc.totalPrice}</FinalPrice>
+                      </PriceContainer>
+                    </ResultHeader>
+
+                    <Text style={{ color: theme.colors.textSecondary, fontSize: 12, fontWeight: '500' }}>
+                      📍 A {calc.distance} km • {calc.breakdown}
+                    </Text>
+
+                    <PromoDescription>
+                      {isBestOption 
+                        ? `✨ Comprando tu carrito en ${calc.storeName} tenés la opción más económica hoy.` 
+                        : `Comprando en ${calc.storeName} gastás $${calc.totalPrice - calculations[0].totalPrice} más que la opción recomendada.`}
+                    </PromoDescription>
+
+                    <SaveDealButton onPress={() => handleGenerateOrder(calc)}>
+                      <Ionicons name="receipt-outline" size={16} color={theme.colors.primary} />
+                      <SaveDealText>Generar Pedido</SaveDealText>
+                    </SaveDealButton>
+                  </ResultCard>
+                );
+              })}
+            </ResultsContainer>
+          </ScrollView>
+        )}
+      </ContentArea>
+    );
+  };
+
+  return (
+    <MainWrapper isWide={isWide}>
+      {renderContentArea()}
+      {isWide && renderAsideRight()}
+    </MainWrapper>
   );
 }
 

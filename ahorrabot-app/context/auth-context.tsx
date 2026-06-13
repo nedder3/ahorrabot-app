@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as db from '../database/db';
 import { User } from '../database/db';
+import { loadPricesFromDb } from '../services/supermarket-data';
 
 interface AuthContextType {
   user: User | null;
@@ -26,12 +27,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const initialize = async () => {
       try {
         await db.initDatabase();
+        // Load products and prices from database
+        await loadPricesFromDb();
         
-        // Load user session
-        const savedUser = await AsyncStorage.getItem('auth_user');
-        if (savedUser) {
-          setUser(JSON.parse(savedUser));
-        }
+        // Always start logged out (session closed)
+        await AsyncStorage.removeItem('auth_user');
+        setUser(null);
 
         // Load saved promo cards
         const savedCards = await AsyncStorage.getItem('auth_cards');

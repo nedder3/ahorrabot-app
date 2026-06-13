@@ -18,6 +18,7 @@ export const lightTheme = {
     bubbleBot: '#F1F5F9', // Bot chats in soft white/gray
     textUser: '#FFFFFF',
     textBot: '#1E293B',
+    glassBg: 'rgba(255, 255, 255, 0.65)', // transparent card light
   }
 };
 
@@ -36,6 +37,7 @@ export const darkTheme = {
     bubbleBot: '#270808',
     textUser: '#FFFFFF',
     textBot: '#F8FAFC',
+    glassBg: 'rgba(39, 8, 8, 0.65)', // transparent card dark
   }
 };
 

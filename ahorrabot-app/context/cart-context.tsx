@@ -1,7 +1,7 @@
 // context/cart-context.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PRODUCTS, PRICES, getActivePromos, STORES } from '../services/supermarket-data';
+import { PRODUCTS, PRICES, getActivePromos, STORES, updateAllPricesInBackground } from '../services/supermarket-data';
 
 export interface CartItem {
   productId: string;
@@ -23,31 +23,45 @@ interface CartContextType {
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
   calculateCartTotals: (day: string, userCards: string[]) => StoreCartTotal[];
+  pricesVersion: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [pricesVersion, setPricesVersion] = useState<number>(0);
 
-  // Load cart from AsyncStorage on mount
+  // Start with an empty cart on app mount for a fresh session
   useEffect(() => {
-    const loadCart = async () => {
+    setCart([]);
+
+    // Trigger live prices background update at app startup (once a day)
+    const fetchLivePrices = async () => {
       try {
-        const storedCart = await AsyncStorage.getItem('shopping_cart');
-        if (storedCart) {
-          setCart(JSON.parse(storedCart));
+        const todayStr = new Date().toDateString();
+        const lastUpdate = await AsyncStorage.getItem('last_prices_update');
+        
+        if (lastUpdate !== todayStr) {
+          console.log('[Scraper] Last update was: ' + lastUpdate + '. Performing daily live prices update...');
+          // Wait 3 seconds after startup to not block initial rendering, then fetch in background
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          await updateAllPricesInBackground(() => {
+            setPricesVersion(prev => prev + 1);
+          });
+          await AsyncStorage.setItem('last_prices_update', todayStr);
+        } else {
+          console.log('[Scraper] Prices are already up-to-date for today: ' + todayStr);
         }
-      } catch (e) {
-        console.error('Error loading cart:', e);
+      } catch (err) {
+        console.error('Error fetching live prices:', err);
       }
     };
-    loadCart();
+    fetchLivePrices();
   }, []);
 
-  // Save cart to AsyncStorage when it changes
-  const saveCart = async (newCart: CartItem[]) => {
-    setCart(newCart);
+  // Persist cart to AsyncStorage helper
+  const persistCart = async (newCart: CartItem[]) => {
     try {
       await AsyncStorage.setItem('shopping_cart', JSON.stringify(newCart));
     } catch (e) {
@@ -59,38 +73,51 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 
-    const existingItemIndex = cart.findIndex(item => item.productId === productId);
-    let newCart = [...cart];
+    setCart(prevCart => {
+      const existingItemIndex = prevCart.findIndex(item => item.productId === productId);
+      let newCart = [...prevCart];
 
-    if (existingItemIndex > -1) {
-      newCart[existingItemIndex].quantity += quantity;
-    } else {
-      newCart.push({
-        productId,
-        name: product.name,
-        quantity
-      });
-    }
+      if (existingItemIndex > -1) {
+        newCart[existingItemIndex] = {
+          ...newCart[existingItemIndex],
+          quantity: newCart[existingItemIndex].quantity + quantity
+        };
+      } else {
+        newCart.push({
+          productId,
+          name: product.name,
+          quantity
+        });
+      }
 
-    saveCart(newCart);
+      persistCart(newCart);
+      return newCart;
+    });
   };
 
   const removeFromCart = (productId: string) => {
-    const existingItemIndex = cart.findIndex(item => item.productId === productId);
-    if (existingItemIndex === -1) return;
+    setCart(prevCart => {
+      const existingItemIndex = prevCart.findIndex(item => item.productId === productId);
+      if (existingItemIndex === -1) return prevCart;
 
-    let newCart = [...cart];
-    if (newCart[existingItemIndex].quantity > 1) {
-      newCart[existingItemIndex].quantity -= 1;
-    } else {
-      newCart.splice(existingItemIndex, 1);
-    }
+      let newCart = [...prevCart];
+      if (newCart[existingItemIndex].quantity > 1) {
+        newCart[existingItemIndex] = {
+          ...newCart[existingItemIndex],
+          quantity: newCart[existingItemIndex].quantity - 1
+        };
+      } else {
+        newCart.splice(existingItemIndex, 1);
+      }
 
-    saveCart(newCart);
+      persistCart(newCart);
+      return newCart;
+    });
   };
 
   const clearCart = () => {
-    saveCart([]);
+    setCart([]);
+    persistCart([]);
   };
 
   // Calculate cart totals for all supermarkets, applying today's active discounts
@@ -135,7 +162,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, calculateCartTotals }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, calculateCartTotals, pricesVersion }}>
       {children}
     </CartContext.Provider>
   );

@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "axios": "^1.12.2",
-    "babel-preset-expo": "^54.0.2",
+    "babel-preset-expo": "~54.0.10",
     "dotenv": "^17.2.2",
-    "expo": "54.0.21",
-    "expo-status-bar": "~3.0.8",
+    "expo": "~54.0.35",
+    "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-dotenv": "^3.4.11",

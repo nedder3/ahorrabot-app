@@ -1,4 +1,3 @@
-// app/_layout.tsx
 import React, { useEffect } from 'react';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
@@ -6,6 +5,7 @@ import { AuthProvider, useAuth } from '../context/auth-context';
 import { ThemeProvider, useAppTheme } from '../context/theme-context';
 import { CartProvider } from '../context/cart-context';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function RootLayoutNav() {
   const { user, loading } = useAuth();
@@ -47,14 +47,16 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <ThemeProvider>
-          <RootLayoutNav />
-          <StatusBar style="auto" />
-        </ThemeProvider>
-      </CartProvider>
-    </AuthProvider>
+    <SafeAreaProvider>
+      <AuthProvider>
+        <CartProvider>
+          <ThemeProvider>
+            <RootLayoutNav />
+            <StatusBar style="auto" />
+          </ThemeProvider>
+        </CartProvider>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }
 

@@ -17,18 +17,15 @@ const Container = styled.SafeAreaView`
 const ProfileHeader = styled.View`
   align-items: center;
   padding: 32px 20px 24px 20px;
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.glassBg};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.border};
 `;
 
-const AvatarContainer = styled.View`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  background-color: ${props => props.theme.colors.primaryLight};
-  justify-content: center;
-  align-items: center;
+const AvatarImage = styled.Image`
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
   border-width: 2.5px;
   border-color: ${props => props.theme.colors.primary};
   margin-bottom: 12px;
@@ -56,7 +53,7 @@ const SectionTitle = styled.Text`
 `;
 
 const SettingsCard = styled.View`
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.glassBg};
   border-width: 1px;
   border-color: ${props => props.theme.colors.border};
   border-radius: 16px;
@@ -86,7 +83,7 @@ const SettingLabel = styled.Text`
 `;
 
 const SavedDealCard = styled.View`
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.glassBg};
   border-width: 1px;
   border-color: ${props => props.theme.colors.border};
   border-radius: 16px;
@@ -205,9 +202,7 @@ export default function ProfileScreen() {
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ProfileHeader>
-          <AvatarContainer>
-            <Ionicons name="person" size={44} color={theme.colors.primary} />
-          </AvatarContainer>
+          <AvatarImage source={require('../../assets/images/ahorrabot_logo.png')} />
           <ProfileName>{user?.username || 'Usuario'}</ProfileName>
           <ProfileEmail>{user?.email || 'correo@ejemplo.com'}</ProfileEmail>
         </ProfileHeader>

@@ -31,14 +31,35 @@ const BrandContainer = styled.View`
   margin-bottom: 32px;
 `;
 
-const LogoCircle = styled.View`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  background-color: ${props => props.theme.colors.primaryLight};
-  justify-content: center;
-  align-items: center;
+const LogoImage = styled.Image`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
   margin-bottom: 16px;
+  border-width: 2.5px;
+  border-color: ${props => props.theme.colors.primary};
+`;
+
+const GlowCircle1 = styled.View`
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 90px;
+  background-color: rgba(220, 38, 38, 0.15);
+  top: 15%;
+  left: -50px;
+  z-index: 0;
+`;
+
+const GlowCircle2 = styled.View`
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 110px;
+  background-color: rgba(245, 158, 11, 0.15);
+  bottom: 15%;
+  right: -50px;
+  z-index: 0;
 `;
 
 const BrandName = styled.Text`
@@ -55,7 +76,7 @@ const BrandSlogan = styled.Text`
 `;
 
 const FormCard = styled.View`
-  background-color: ${props => props.theme.colors.card};
+  background-color: ${props => props.theme.colors.glassBg};
   border-radius: 24px;
   padding: 24px;
   border-width: 1px;
@@ -65,6 +86,7 @@ const FormCard = styled.View`
   shadow-opacity: 0.05;
   shadow-radius: 8px;
   elevation: 4;
+  z-index: 1;
 `;
 
 const Title = styled.Text`
@@ -227,16 +249,16 @@ export default function LoginScreen() {
   };
 
   return (
-    <Container>
+    <Container style={{ position: 'relative', overflow: 'hidden' }}>
+      <GlowCircle1 />
+      <GlowCircle2 />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+        style={{ flex: 1, zIndex: 1 }}
       >
         <ContentContainer>
           <BrandContainer>
-            <LogoCircle>
-              <Ionicons name="cart" size={40} color={theme.colors.primary} />
-            </LogoCircle>
+            <LogoImage source={require('../assets/images/ahorrabot_logo.png')} />
             <BrandName>AhorraBot</BrandName>
             <BrandSlogan>Buscá, compará y estirá tu sueldo 🇦🇷</BrandSlogan>
           </BrandContainer>
