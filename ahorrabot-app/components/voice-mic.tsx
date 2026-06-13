@@ -18,7 +18,7 @@ let Voice: any = null;
 if (Platform.OS !== 'web') {
   try {
     if (NativeModules && NativeModules.Voice) {
-      Voice = require('@react-native-voice/voice').default;
+      Voice = require('@dev-amirzubair/react-native-voice').default;
     } else {
       console.warn('Voice recognition native module is not available (e.g. Expo Go/emulator)');
     }
